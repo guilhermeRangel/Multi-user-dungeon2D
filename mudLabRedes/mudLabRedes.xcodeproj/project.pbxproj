@@ -59,9 +59,9 @@
 			isa = PBXGroup;
 			children = (
 				774B8D4923326003006DA98D /* UDPClient.swift */,
+				77608C4F23306961004C07FD /* UDPServer.swift */,
 				772D84A2232729F200B1CEB5 /* AppDelegate.swift */,
 				772D84A4232729F200B1CEB5 /* ViewController.swift */,
-				77608C4F23306961004C07FD /* UDPServer.swift */,
 				772D84A6232729F200B1CEB5 /* Main.storyboard */,
 				772D84A9232729F200B1CEB5 /* Assets.xcassets */,
 				772D84AB232729F200B1CEB5 /* LaunchScreen.storyboard */,

@@ -28,7 +28,7 @@ class ViewController: UIViewController {
     @IBAction func client(_ sender: UIButton) {
         label.text = "CLIENT"
         // CLIENT
-        client = UDPClient(name: "client1")
+        client = UDPClient()
     }
     
     

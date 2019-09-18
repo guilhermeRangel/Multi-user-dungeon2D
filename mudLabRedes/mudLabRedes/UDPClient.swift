@@ -13,17 +13,17 @@ class UDPClient {
     var connection: NWConnection
     var queue: DispatchQueue
     
-    init(name: String) {
+    init() {
         queue = DispatchQueue(label: "UDP Client Queue")
         
         //cria a coneccao
-        connection = NWConnection(to: .service(name: name, type: "_http._udp", domain: "local", interface: nil), using: .udp)
+        connection = NWConnection(to: .service(name: "server", type: "_http._udp", domain: "local", interface: nil), using: .udp)
         
         
         
         //status update handler
         connection.stateUpdateHandler = { [weak self] (newState) in
-            
+            print("mudou")
             switch (newState) {
             case .ready:
                 print("pronto para enviar")

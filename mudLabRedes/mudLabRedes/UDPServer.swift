@@ -22,18 +22,17 @@ class UDPServer {
         
         
         //listen to changes in the service registration
-        listener.service = NWListener.Service(type: "test")
+      //  listener.service = NWListener.Service(type: "test")
+        listener.service = NWListener.Service(name: "server", type: "_http._udp", domain: "local", txtRecord: nil)
+        
         listener.serviceRegistrationUpdateHandler = { (serviceChange) in
             
+            print("registrando serviço")
             switch (serviceChange) {
             case .add(let endpoint):
                 switch endpoint {
                     case let .service(name, _, _, _):
                         print("Listening as \(name)")
-                case .hostPort(let host, let port):
-                    print("host \(host)")
-                case .unix(let path):
-                    print("path \(path)")
                 @unknown default:
                     break
                 }
@@ -46,11 +45,14 @@ class UDPServer {
         
         //handle incoming connections
         listener.newConnectionHandler = { [weak self] (newConnection) in
+            print("nova conexao com o servidor")
             if let strongSelf = self {
                 newConnection.start(queue: strongSelf.queue)
                 strongSelf.receive(on: newConnection)
+                
+                
             }
-            
+            print("alguem conectou\(newConnection)")
         }
         
         //handle listener state changes
@@ -66,7 +68,7 @@ class UDPServer {
         }
         
         //start the listener
-        listener.start(queue: queue)
+        listener.start(queue: .main)
         
     }
     
@@ -74,6 +76,7 @@ class UDPServer {
     func receive(on connection: NWConnection){
         connection.receiveMessage { (content, context, isComplete, error) in
             // Extract your message type from the received context.
+            print("recebendo msg\(content?.description)")
             if let frame = content {
                 if !self.connected {
                     connection.send(content: frame, completion: .idempotent)
