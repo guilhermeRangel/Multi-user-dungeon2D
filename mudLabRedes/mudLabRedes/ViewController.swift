@@ -7,15 +7,42 @@
 //
 
 import UIKit
+import Network
+
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var label: UILabel!
+    
+    var server: UDPServer?
+    var client: UDPClient?
+    
+    @IBAction func server(_ sender: UIButton) {
+        label.text = "SERVER"
+        // SERVER
+        server = UDPServer()
+        
+        
+    }
+    
+    @IBAction func client(_ sender: UIButton) {
+        label.text = "CLIENT"
+        // CLIENT
+        client = UDPClient(name: "client1")
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("ola mud")
-        // Do any additional setup after loading the view.
+      
+        
+
+        
     }
 
 
 }
+
+
+
 
