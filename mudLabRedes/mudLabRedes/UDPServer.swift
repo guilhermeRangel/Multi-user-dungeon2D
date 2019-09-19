@@ -17,22 +17,18 @@ class UDPServer {
     
     init?() {
         queue = DispatchQueue(label: "UDP Server Queue")
+        
         //create the listener
         listener = try! NWListener(using: .udp, on: .http)
-        
-        
-        //listen to changes in the service registration
-      //  listener.service = NWListener.Service(type: "test")
-        listener.service = NWListener.Service(name: "server", type: "_http._udp", domain: "local", txtRecord: nil)
-        
+        listener.service = NWListener.Service(name: "serverMUD", type: "_http._udp", domain: "local", txtRecord: nil)
         listener.serviceRegistrationUpdateHandler = { (serviceChange) in
             
-            print("registrando serviço")
+            print("registrando serviços \(serviceChange)")
             switch (serviceChange) {
             case .add(let endpoint):
                 switch endpoint {
                     case let .service(name, _, _, _):
-                        print("Listening as \(name)")
+                        print("Servidor aberto com o nome - \(name)")
                 @unknown default:
                     break
                 }
@@ -45,21 +41,24 @@ class UDPServer {
         
         //handle incoming connections
         listener.newConnectionHandler = { [weak self] (newConnection) in
-            print("nova conexao com o servidor")
+            print("novo player se conectou com o servidor ")
             if let strongSelf = self {
                 newConnection.start(queue: strongSelf.queue)
                 strongSelf.receive(on: newConnection)
                 
                 
             }
-            print("alguem conectou\(newConnection)")
+            print("o jogador\(newConnection.debugDescription) conectou-se")
         }
         
-        //handle listener state changes
+        //handle listener state changes,
+        //verifica as mudancas de estados
+        
+        //1
         listener.stateUpdateHandler = { [weak self] (newState) in
             switch (newState) {
             case .ready:
-                print("listening on port \(String(describing: self?.listener.port))")
+                print("Servidor conectado na porta : \(self!.listener.port!)")
             case .failed(let error):
                 print("Listener failed with error: \(error)")
             default:
@@ -68,18 +67,35 @@ class UDPServer {
         }
         
         //start the listener
-        listener.start(queue: .main)
+        listener.start(queue: queue)
         
     }
+    
+    struct sendAndReceiveMsgsCodable : Codable {
+        var msgObj: String?
+    
+    }
+
     
     //receive packets from the other side and push to scren as videos
     func receive(on connection: NWConnection){
         connection.receiveMessage { (content, context, isComplete, error) in
             // Extract your message type from the received context.
-            print("recebendo msg\(content?.description)")
             if let frame = content {
                 if !self.connected {
                     connection.send(content: frame, completion: .idempotent)
+                    
+                     let decoder = JSONDecoder()
+                    
+                    if let dataReceived = try? decoder.decode(sendAndReceiveMsgsCodable.self, from: frame) {
+                        if let Obj = dataReceived.msgObj {
+                            print("----------")
+                            print("msg recebida : \(Obj)")
+                            print("----------")
+                        }
+                    }
+                    
+                    
                     print("echoed initial content: \(frame)")
                     self.connected = true
                 }else {
