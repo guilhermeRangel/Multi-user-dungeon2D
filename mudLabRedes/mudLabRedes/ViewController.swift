@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     
     var server: UDPServer?
     var client: UDPClient?
+    var gameViewController : GameViewController?
     
     @IBAction func server(_ sender: UIButton) {
         label.text = "SERVER"
@@ -28,7 +29,9 @@ class ViewController: UIViewController {
     @IBAction func client(_ sender: UIButton) {
         label.text = "CLIENT"
         // CLIENT
-        client = UDPClient()
+         
+        gameViewController = GameViewController()
+       
     }
     
     
