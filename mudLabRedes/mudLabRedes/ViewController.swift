@@ -14,14 +14,15 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var label: UILabel!
     
-    var server: UDPServer?
-    var client: UDPClient?
+   
     var gameViewController : GameViewController?
-    
+    var logicGameServer : LogicGame?
     @IBAction func server(_ sender: UIButton) {
         label.text = "SERVER"
         // SERVER
-        server = UDPServer()
+        logicGameServer = LogicGame()
+             
+        
         
         
     }
@@ -29,7 +30,7 @@ class ViewController: UIViewController {
     @IBAction func client(_ sender: UIButton) {
         label.text = "CLIENT"
         // CLIENT
-         
+    
         gameViewController = GameViewController()
        
     }

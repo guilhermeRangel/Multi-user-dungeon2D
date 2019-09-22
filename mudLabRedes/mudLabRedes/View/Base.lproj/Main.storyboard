@@ -26,6 +26,7 @@
                                 </state>
                                 <connections>
                                     <action selector="server:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ogE-2m-w1Z"/>
+                                    <segue destination="Tun-sU-dKT" kind="show" id="RxD-9Q-VUv"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lq8-PY-EdY">
@@ -84,6 +85,31 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rg6-RN-OED" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1021.7391304347827" y="112.5"/>
+        </scene>
+        <!--Game Server View Controller-->
+        <scene sceneID="vSO-ag-Raa">
+            <objects>
+                <viewController id="Tun-sU-dKT" customClass="GameServerViewController" customModule="mudLabRedes" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vfg-1F-qdv">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <skView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7rz-Ud-IQt">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </skView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="wGP-Xy-3ot"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="5YT-W9-8cM"/>
+                    <connections>
+                        <outlet property="skview" destination="7rz-Ud-IQt" id="s1K-tY-xNI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qbm-3A-Ent" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1008.6956521739131" y="788.83928571428567"/>
         </scene>
     </scenes>
 </document>

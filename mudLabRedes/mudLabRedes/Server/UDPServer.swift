@@ -8,6 +8,7 @@
 
 import Foundation
 import Network
+import SpriteKit
 
 class UDPServer {
 
@@ -69,10 +70,12 @@ class UDPServer {
         //start the listener
         listener.start(queue: queue)
         
+        
     }
     
     struct sendAndReceiveMsgsCodable : Codable {
         var msgObj: String?
+        var points : CGPoint?
     
     }
 
@@ -91,7 +94,11 @@ class UDPServer {
                         if let Obj = dataReceived.msgObj {
                             print("----------")
                             print("msg recebida : \(Obj)")
+                               
                             print("----------")
+                        }
+                        if let ObjPosition = dataReceived.points {
+                               print("msg recebida : \(ObjPosition)")
                         }
                     }
                     
@@ -109,5 +116,7 @@ class UDPServer {
             
         }
     }
+    
+    
 }
 

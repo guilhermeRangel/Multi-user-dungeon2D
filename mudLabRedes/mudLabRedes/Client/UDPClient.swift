@@ -8,6 +8,7 @@
 
 import Foundation
 import Network
+import SpriteKit
 
 class UDPClient {
     var connection: NWConnection
@@ -24,8 +25,7 @@ class UDPClient {
             switch (newState) {
             case .ready:
                 print("pronto para enviar dados")
-                self?.sendInitialFrame()
-                
+
             case .failed(let error) :
                 print("falhor \(error)")
             default:
@@ -37,19 +37,15 @@ class UDPClient {
         //inicia a conecxao
         connection.start(queue: queue)
     }
-        //envia o inicio "hello world"
+  
     
-    
-    func sendInitialFrame() {
+    func sendInitialFrame(user : String) {
 //        let helloMessage = "ola mundo 123".data(using: .utf8)
-        let helloMsg : UDPServer.sendAndReceiveMsgsCodable = UDPServer.sendAndReceiveMsgsCodable(msgObj: "ola mundo")
+        let helloMsg : UDPServer.sendAndReceiveMsgsCodable = UDPServer.sendAndReceiveMsgsCodable(msgObj: user)
         let encoder = JSONEncoder()
         guard let data = try? encoder.encode(helloMsg) else {return print("erro Encode")}
         
         connection.send(content: data, completion: .contentProcessed({ (error)  in
-            
-
-            
             print("Dados enviados com sucesso!")
             if let error = error {
                 print("erro ao enviar dados\(error)")
@@ -68,6 +64,32 @@ class UDPClient {
             
         }
     }
+    
+    func sendFrame(position : CGPoint) {
+    //        let helloMessage = "ola mundo 123".data(using: .utf8)
+//            let helloMsg : UDPServer.sendAndReceiveMsgsCodable = UDPServer.sendAndReceiveMsgsCodable(msgObj: "ola mundo")
+            let encoder = JSONEncoder()
+            guard let data = try? encoder.encode(position) else {return print("erro Encode")}
+            
+            connection.send(content: data, completion: .contentProcessed({ (error)  in
+                print("Enviado Position Player")
+                if let error = error {
+                    print("erro ao enviar dados\(error)")
+                }
+            }))
+            
+           
+            //eu acho q isso é tipo um ack
+            connection.receiveMessage { (content, context, isComplete, error) in
+                print("got cinnected")
+                // Extract your message type from the received context.
+                if content != nil {
+                    print("dados \(content?.description)")
+                    
+                }
+                
+            }
+        }
     
     //send  data
     
