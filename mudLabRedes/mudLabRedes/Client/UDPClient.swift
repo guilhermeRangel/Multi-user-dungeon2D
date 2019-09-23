@@ -94,6 +94,7 @@ class UDPClient {
             }))
             
            
+        
             //eu acho q isso é tipo um ack
             connection.receiveMessage { (content, context, isComplete, error) in
                 print("got connected")

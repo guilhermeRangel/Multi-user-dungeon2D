@@ -54,6 +54,13 @@ class LogicGame: SKScene, SKPhysicsContactDelegate {
             
         }else if name == "player2"{
              player2.position = points
+            
+            for var p in modelPlayerList.players! {
+                          if  (p.player?.name == "player2") {
+                           p.player = player2
+                           
+                           }
+                       }
         }
         
         
@@ -98,7 +105,7 @@ class LogicGame: SKScene, SKPhysicsContactDelegate {
         addChild(misturador)
     }
     
-    
+    @discardableResult
     func createPlayer(player: SKSpriteNode) -> SKSpriteNode{
         if modelPlayerList.countPlayer == 0 {
             player.name = "player1"
