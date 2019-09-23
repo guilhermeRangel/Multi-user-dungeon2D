@@ -12,39 +12,81 @@ import Network
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var login: UITextField!
     
-   
+    @IBOutlet weak var password: UITextField!
+    
+    @IBOutlet weak var label: UILabel!
+    var logins : [String : String] = ["admin": "admin",
+                                      "p1" : "1234",
+                                      "p2" : "1234"]
+    
     var gameViewController : GameViewController?
-    var logicGameServer : LogicGame?
+    var gameViewController2 : GameViewController2?
+    var logicGameServer : GameServerViewController?
+    
+    
+    
+    
     @IBAction func server(_ sender: UIButton) {
         label.text = "SERVER"
         // SERVER
-        logicGameServer = LogicGame()
-             
-        
-        
-        
+        logicGameServer = GameServerViewController()
     }
     
-    @IBAction func client(_ sender: UIButton) {
+    @IBAction func player1(_ sender: UIButton) {
         label.text = "CLIENT"
         // CLIENT
-    
-        gameViewController = GameViewController()
+        
        
+      
+            for l in logins {
+                if ((l.key == login.text) && (l.value == password.text)){
+                    
+                    if l.key == "p1" {
+                        gameViewController = GameViewController()
+                    }else if l.key == "p2" {
+                        
+                        gameViewController2 = GameViewController2()
+                    }
+                }
+                
+            
+            
+        }
+        
+        
     }
+    
+    @IBAction func player2(_ sender: UIButton) {
+        
+        for l in logins {
+                       if ((l.key == login.text) && (l.value == password.text)){
+                           
+                           if l.key == "p1" {
+                               gameViewController = GameViewController()
+                           }else if l.key == "p2" {
+                               
+                               gameViewController2 = GameViewController2()
+                           }
+                       }
+                       
+                   
+                   
+               }
+    }
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
         
-
+        
+        
         
     }
-
-
+    
+    
 }
 
 

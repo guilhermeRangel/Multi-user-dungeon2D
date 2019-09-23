@@ -10,13 +10,13 @@
 import SpriteKit
 import GameplayKit
 
-class LogicGame: SKScene, SKPhysicsContactDelegate {
+class GameScene2: SKScene, SKPhysicsContactDelegate {
     
-    var modelPlayer : playerModel = playerModel()
-    var modelPlayerList : playersList = playersList()
+    var player = SKSpriteNode(imageNamed: "p2")
+    var server : UDPServer?
+    var client : UDPClient?
+    var logicGame : LogicGame?
     
-    var player1 = SKSpriteNode(imageNamed: "p1")
-     var player2 = SKSpriteNode(imageNamed: "p2")
     var ground = SKSpriteNode(imageNamed: "bg")
     var misturador = SKSpriteNode(imageNamed: "misturador")
     
@@ -25,133 +25,52 @@ class LogicGame: SKScene, SKPhysicsContactDelegate {
     var dorBaixo = SKNode()
     var dorCima = SKNode()
     
-    
     override func didMove(to view: SKView) {
         physicsWorld.contactDelegate = self
-        print("game server")
-        createPlayer(player: player1)
-        createPlayer(player: player2)
         
+        
+        
+        
+        client = UDPClient()
+        createPlayer()
+        client?.sendInitialFrame(position: player.position, node: player)
         createGround()
         createMisturador()
         createEmptyNode()
         
-        
-        
     }
     
-    public func movePlayer(points : CGPoint, name: String){
-        
-        if name == "player1" {
-            player1.position = points
-        }else if name == "player2"{
-             player2.position = points
-        }
-        
-        
-        
-        
-    }
+    
+    
     
     override public func touchesBegan ( _ touches: Set<UITouch>, with event: UIEvent?) {
         
         if let location = touches.first?.location(in: self){
+            player.run(SKAction.move(to: location, duration: 3))
+            client?.sendFrame(node: player)
             
-        }}
-    
-    override func update(_ currentTime: TimeInterval) {
-        
-        
-        
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    func createGround(){
-        ground.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        ground.position = CGPoint(x: 0, y: 0)
-        ground.size = CGSize(width: (scene?.size.width)!, height: (scene?.size.height)!)
-        ground.name = "ground"
-        addChild(ground)
-    }
-    
-    func createMisturador(){
-        misturador.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        misturador.position = CGPoint(x: -37, y: 200)
-        misturador.size = CGSize(width: 130, height: 130)
-        misturador.name = "misturador"
-        addChild(misturador)
-    }
-    
-    
-    func createPlayer(player: SKSpriteNode) -> SKSpriteNode{
-        if modelPlayerList.countPlayer == 0 {
-            player.name = "player1"
-            player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-                  player.position = CGPoint(x: 0, y: 0)
-                  player.size = CGSize(width: 65, height: 65)
-                  player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: (player.size.width), height: (player.size.height)), center: .zero)
-                  player.physicsBody?.affectedByGravity = false
-                  player.physicsBody?.isDynamic = true
-                  player.physicsBody?.categoryBitMask = 0b1
-                  player.physicsBody?.contactTestBitMask =  0b10
-                  //player.physicsBody?.collisionBitMask = 0b10000
-                  player.physicsBody?.allowsRotation = false
-                  player.zPosition = 3
-                  
-                modelPlayer.key = false
-                 modelPlayer.cores = 0
-                 modelPlayer.stateDungeon = 0
-                 modelPlayer.position = player1.position
-                 modelPlayer.player = player1
-                 modelPlayerList.players?.append(modelPlayer)
-                 modelPlayerList.countPlayer += 1
-            
-            
-                  scene?.addChild(player)
-            
-            
-            
-            
-            return player
-        }else{
-            player2.name = "player2"
-            player2.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-                             player2.position = CGPoint(x: 0, y: 0)
-                             player2.size = CGSize(width: 65, height: 65)
-                             player2.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: (player2.size.width), height: (player2.size.height)), center: .zero)
-                             player2.physicsBody?.affectedByGravity = false
-                             player2.physicsBody?.isDynamic = true
-                             player2.physicsBody?.categoryBitMask = 0b1
-                             player2.physicsBody?.contactTestBitMask =  0b10
-                             //player.physicsBody?.collisionBitMask = 0b10000
-                             player2.physicsBody?.allowsRotation = false
-                             player2.zPosition = 3
-                             
-                             
-            modelPlayer.key = false
-            modelPlayer.cores = 0
-            modelPlayer.stateDungeon = 0
-            modelPlayer.position = player2.position
-            modelPlayer.player = player2
-            modelPlayerList.players?.append(modelPlayer)
-            modelPlayerList.countPlayer += 1
-            scene?.addChild(player2)
-            
-             return player2
         }
-        
-      
-        
-        
-        
     }
     
+    
+    
+    
+    
+    func createPlayer(){
+        player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        player.position = CGPoint(x: 10, y: 0)
+        player.size = CGSize(width: 65, height: 65)
+        player.name = "player2"
+        player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: (player.size.width), height: (player.size.height)), center: .zero)
+        player.physicsBody?.affectedByGravity = false
+        player.physicsBody?.isDynamic = true
+        player.physicsBody?.categoryBitMask = 0b1
+        player.physicsBody?.contactTestBitMask =  0b10
+        //player.physicsBody?.collisionBitMask = 0b10000
+        player.physicsBody?.allowsRotation = false
+        player.zPosition = 3
+        addChild(player)
+    }
     
     func createEmptyNode(){
         dorEsq.name = "dorEsq"
@@ -201,9 +120,38 @@ class LogicGame: SKScene, SKPhysicsContactDelegate {
         addChild(dorCima)
     }
     
+    func createGround(){
+        ground.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        ground.position = CGPoint(x: 0, y: 0)
+        ground.size = CGSize(width: (scene?.size.width)!, height: (scene?.size.height)!)
+        ground.name = "ground"
+        addChild(ground)
+    }
+    
+    func createMisturador(){
+        misturador.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        misturador.size = CGSize(width: 130, height: 130)
+        misturador.name = "misturador"
+        misturador.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 50, height: 80))
+        misturador.position = CGPoint(x: -3, y: 174  )
+        misturador.physicsBody?.categoryBitMask = 0b10
+        misturador.physicsBody?.contactTestBitMask = 0b1
+        misturador.physicsBody?.collisionBitMask = 0
+        misturador.physicsBody?.isDynamic = false
+        misturador.physicsBody?.allowsRotation = false
+        misturador.physicsBody?.affectedByGravity = false
+        
+        addChild(misturador)
+    }
     
     
     
+    
+    
+    
+    override func update(_ currentTime: TimeInterval) {
+        
+    }
     
     
     
@@ -229,7 +177,7 @@ class LogicGame: SKScene, SKPhysicsContactDelegate {
         }
         
         
-        if((nodeA.name == "player" && nodeB.name == "dorBaixo") ||
+        if((nodeA.name == "player1" && nodeB.name == "dorBaixo") ||
             (nodeA.name == "dorBaixo" && nodeB.name == "player1")){
             print("porta Baixo")
             
@@ -279,7 +227,6 @@ class LogicGame: SKScene, SKPhysicsContactDelegate {
         }
         
     }
-    
     
     
 }

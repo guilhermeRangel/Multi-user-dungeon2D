@@ -11,12 +11,22 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    var player = SKSpriteNode(imageNamed: "player1")
     
+    MARK
+    //fazer o p1 enxergar o p2, acredito q o server deva enviar um ack de volta para poder fazer isso
+    
+    var player2 = SKSpriteNode(imageNamed: "p2")
+    
+    var model : playersList = playersList()
+    
+    var player = SKSpriteNode(imageNamed: "p1")
+    var server : UDPServer?
     var client : UDPClient?
-    var stateDungeon = 0
+    var logicGame : LogicGame?
+    
     var ground = SKSpriteNode(imageNamed: "bg")
     var misturador = SKSpriteNode(imageNamed: "misturador")
+    
     var dorEsq = SKNode()
     var dorDir = SKNode()
     var dorBaixo = SKNode()
@@ -24,21 +34,38 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         physicsWorld.contactDelegate = self
+
         client = UDPClient()
-        client?.sendInitialFrame(user : "player")
         createPlayer()
+        client?.sendInitialFrame(position: player.position, node: player)
         createGround()
         createMisturador()
         createEmptyNode()
         
     }
+    
+    
+    
+    
+    override public func touchesBegan ( _ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        if let location = touches.first?.location(in: self){
+            player.run(SKAction.move(to: location, duration: 3))
+            client?.sendFrame(node: player)
+            
+        }
+    }
+    
+    
+    
+    
+    
     func createPlayer(){
         player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         player.position = CGPoint(x: 0, y: 0)
         player.size = CGSize(width: 65, height: 65)
-        player.name = "player"
-        
-        player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: player.size.width, height: player.size.height), center: .zero)
+        player.name = "player1"
+        player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: (player.size.width), height: (player.size.height)), center: .zero)
         player.physicsBody?.affectedByGravity = false
         player.physicsBody?.isDynamic = true
         player.physicsBody?.categoryBitMask = 0b1
@@ -48,6 +75,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.zPosition = 3
         addChild(player)
     }
+    
     func createEmptyNode(){
         dorEsq.name = "dorEsq"
         dorDir.name = "dorDir"
@@ -108,7 +136,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         misturador.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         misturador.size = CGSize(width: 130, height: 130)
         misturador.name = "misturador"
-        
         misturador.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 50, height: 80))
         misturador.position = CGPoint(x: -3, y: 174  )
         misturador.physicsBody?.categoryBitMask = 0b10
@@ -131,17 +158,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
-    override public func touchesBegan ( _ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        if let location = touches.first?.location(in: self){
-            client?.sendFrame(position: location)
-            print(location)
-            player.run(SKAction.move(to: location, duration: 3))
-        }
-    }
     
-    
-    //MARK CONTATATOS
     
     public func didBegin(_ contact: SKPhysicsContact) {
         
@@ -149,65 +166,60 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         guard let nodeB = contact.bodyB.node else { return}
         
         
-        if((nodeA.name == "player" && nodeB.name == "dorEsq") ||
-            (nodeA.name == "dorEsq" && nodeB.name == "player")){
+        if((nodeA.name == "player1" && nodeB.name == "dorEsq") ||
+            (nodeA.name == "dorEsq" && nodeB.name == "player1")){
             print("porta Esquerda")
-            stateDungeon = 1
+            
             
         }
         
-        if((nodeA.name == "player" && nodeB.name == "dorDir") ||
-            (nodeA.name == "dorDir" && nodeB.name == "player")){
+        if((nodeA.name == "player1" && nodeB.name == "dorDir") ||
+            (nodeA.name == "dorDir" && nodeB.name == "player1")){
             
             print("porta Direita")
-            stateDungeon = 3
+            
         }
         
         
-        if((nodeA.name == "player" && nodeB.name == "dorBaixo") ||
-            (nodeA.name == "dorBaixo" && nodeB.name == "player")){
+        if((nodeA.name == "player1" && nodeB.name == "dorBaixo") ||
+            (nodeA.name == "dorBaixo" && nodeB.name == "player1")){
             print("porta Baixo")
-            stateDungeon = 2
+            
             
         }
         
-        if((nodeA.name == "player" && nodeB.name == "dorCima") ||
-            (nodeA.name == "dorCima" && nodeB.name == "player")){
+        if((nodeA.name == "player1" && nodeB.name == "dorCima") ||
+            (nodeA.name == "dorCima" && nodeB.name == "player1")){
             print("porta Cima")
-            stateDungeon = 4
             
-            if((nodeA.name == "player" && nodeB.name == "misturador") ||
-                (nodeA.name == "misturador" && nodeB.name == "player")){
+            
+            if((nodeA.name == "player1" && nodeB.name == "misturador") ||
+                (nodeA.name == "misturador" && nodeB.name == "player1")){
                 
                 print("Misturador")
             }
             
-            if((nodeA.name == "chave" && nodeB.name == "dorCima") ||
-                (nodeA.name == "dorCima" && nodeB.name == "chave")){
-                
-                print("abriu a porta venceu")
-            }
             
-            if((nodeA.name == "player" && nodeB.name == "backDor") ||
-                (nodeA.name == "backDor" && nodeB.name == "player")){
+            if((nodeA.name == "player1" && nodeB.name == "backDor") ||
+                (nodeA.name == "backDor" && nodeB.name == "player1")){
                 
                 print("Encontou na porta de volta")
             }
             
-            if((nodeA.name == "player" && nodeB.name == "itemRed") ||
-                (nodeA.name == "itemRed" && nodeB.name == "player")){
+            if((nodeA.name == "player1" && nodeB.name == "itemRed") ||
+                (nodeA.name == "itemRed" && nodeB.name == "player1")){
                 
                 print("Encontou na porta de volta")
             }
             
-            if((nodeA.name == "player" && nodeB.name == "itemBlue") ||
-                (nodeA.name == "itemBlue" && nodeB.name == "player")){
+            if((nodeA.name == "player1" && nodeB.name == "itemBlue") ||
+                (nodeA.name == "itemBlue" && nodeB.name == "player1")){
                 
                 print("Encontou na porta de volta")
             }
             
-            if((nodeA.name == "player" && nodeB.name == "itemYellow") ||
-                (nodeA.name == "itemYellow" && nodeB.name == "player")){
+            if((nodeA.name == "player1" && nodeB.name == "itemYellow") ||
+                (nodeA.name == "itemYellow" && nodeB.name == "player1")){
                 
                 print("Encontou na porta de volta")
             }

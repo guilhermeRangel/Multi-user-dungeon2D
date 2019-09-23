@@ -14,6 +14,7 @@ class GameViewController: UIViewController {
     @IBOutlet weak var skview: SKView!
     
     
+    
     var scene: GameScene?
     
     fileprivate func createScene() {
@@ -23,7 +24,6 @@ class GameViewController: UIViewController {
         skview.showsPhysics = true
         scene?.scaleMode = .aspectFill
         scene?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-      
         scene?.physicsBody = SKPhysicsBody.init(edgeLoopFrom: scene!.frame)
         skview.presentScene(scene!)
     }
@@ -33,6 +33,7 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         createScene()
        
     }

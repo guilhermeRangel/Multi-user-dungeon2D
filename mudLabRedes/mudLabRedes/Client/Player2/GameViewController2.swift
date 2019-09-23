@@ -9,20 +9,21 @@
 import UIKit
 import SpriteKit
 import GameplayKit
-class GameServerViewController: UIViewController {
-
+class GameViewController2: UIViewController {
+    
     @IBOutlet weak var skview: SKView!
     
-    var scene: LogicGame?
+    
+    
+    var scene: GameScene2?
     
     fileprivate func createScene() {
-        scene = LogicGame(size: view.bounds.size)
+        scene = GameScene2(size: view.bounds.size)
         skview.showsFPS = true
         skview.showsNodeCount = true
         skview.showsPhysics = true
         scene?.scaleMode = .aspectFill
         scene?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-      
         scene?.physicsBody = SKPhysicsBody.init(edgeLoopFrom: scene!.frame)
         skview.presentScene(scene!)
     }
@@ -32,6 +33,7 @@ class GameServerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("entrei")
         createScene()
        
     }

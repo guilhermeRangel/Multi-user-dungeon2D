@@ -16,9 +16,14 @@ class UDPServer {
     var queue : DispatchQueue
     var connected : Bool = false
     
-    init?() {
-        queue = DispatchQueue(label: "UDP Server Queue")
+    var logicGame : LogicGame?
+    var playerModel : playersList?
+    
+    init?(scene: LogicGame) {
         
+        logicGame = scene
+        
+        queue = DispatchQueue(label: "UDP Server Queue")
         //create the listener
         listener = try! NWListener(using: .udp, on: .http)
         listener.service = NWListener.Service(name: "serverMUD", type: "_http._udp", domain: "local", txtRecord: nil)
@@ -46,10 +51,9 @@ class UDPServer {
             if let strongSelf = self {
                 newConnection.start(queue: strongSelf.queue)
                 strongSelf.receive(on: newConnection)
-                
-                
             }
-            print("o jogador\(newConnection.debugDescription) conectou-se")
+            print("o jogador\(newConnection.currentPath)conectou-se")
+            
         }
         
         //handle listener state changes,
@@ -74,7 +78,7 @@ class UDPServer {
     }
     
     struct sendAndReceiveMsgsCodable : Codable {
-        var msgObj: String?
+        var playerId: String?
         var points : CGPoint?
     
     }
@@ -87,24 +91,22 @@ class UDPServer {
             if let frame = content {
                 if !self.connected {
                     connection.send(content: frame, completion: .idempotent)
-                    
                      let decoder = JSONDecoder()
-                    
                     if let dataReceived = try? decoder.decode(sendAndReceiveMsgsCodable.self, from: frame) {
-                        if let Obj = dataReceived.msgObj {
-                            print("----------")
-                            print("msg recebida : \(Obj)")
-                               
-                            print("----------")
-                        }
-                        if let ObjPosition = dataReceived.points {
-                               print("msg recebida : \(ObjPosition)")
+                        if let ObjId = dataReceived.playerId {
+                        
+                            print("msg recebida : \(ObjId)")
+                            
+                            if let ObjPosition = dataReceived.points {
+                                   print("msg recebida Points : \(ObjPosition)")
+                                
+                               self.logicGame?.movePlayer(points: ObjPosition, name: ObjId)
+                                
+                            }
                         }
                     }
-                    
-                    
-                    print("echoed initial content: \(frame)")
-                    self.connected = true
+  
+                   // self.connected = true
                 }else {
                     print("nao deu")
                 }

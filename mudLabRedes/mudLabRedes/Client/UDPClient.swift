@@ -39,9 +39,9 @@ class UDPClient {
     }
   
     
-    func sendInitialFrame(user : String) {
+    func sendInitialFrame(position : CGPoint, node : SKSpriteNode)  {
 //        let helloMessage = "ola mundo 123".data(using: .utf8)
-        let helloMsg : UDPServer.sendAndReceiveMsgsCodable = UDPServer.sendAndReceiveMsgsCodable(msgObj: user)
+        let helloMsg : UDPServer.sendAndReceiveMsgsCodable = UDPServer.sendAndReceiveMsgsCodable(playerId: node.name, points: node.position)
         let encoder = JSONEncoder()
         guard let data = try? encoder.encode(helloMsg) else {return print("erro Encode")}
         
@@ -55,7 +55,7 @@ class UDPClient {
        
         //eu acho q isso é tipo um ack
         connection.receiveMessage { (content, context, isComplete, error) in
-            print("got cinnected")
+            print("got connected")
             // Extract your message type from the received context.
             if content != nil {
                 print("dados \(content?.description)")
@@ -65,11 +65,10 @@ class UDPClient {
         }
     }
     
-    func sendFrame(position : CGPoint) {
-    //        let helloMessage = "ola mundo 123".data(using: .utf8)
-//            let helloMsg : UDPServer.sendAndReceiveMsgsCodable = UDPServer.sendAndReceiveMsgsCodable(msgObj: "ola mundo")
+    func sendFrame(node : SKSpriteNode) {
+        let idAndPosition : UDPServer.sendAndReceiveMsgsCodable = UDPServer.sendAndReceiveMsgsCodable(playerId: node.name, points: node.position)
             let encoder = JSONEncoder()
-            guard let data = try? encoder.encode(position) else {return print("erro Encode")}
+            guard let data = try? encoder.encode(idAndPosition) else {return print("erro Encode")}
             
             connection.send(content: data, completion: .contentProcessed({ (error)  in
                 print("Enviado Position Player")
@@ -81,10 +80,12 @@ class UDPClient {
            
             //eu acho q isso é tipo um ack
             connection.receiveMessage { (content, context, isComplete, error) in
-                print("got cinnected")
+                print("got connected")
+                
                 // Extract your message type from the received context.
                 if content != nil {
                     print("dados \(content?.description)")
+                    print("context\(context?.identifier)")
                     
                 }
                 
