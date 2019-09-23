@@ -11,19 +11,19 @@ import Network
 import SpriteKit
 
 class UDPServer {
-
+    
     var listener : NWListener
     var queue : DispatchQueue
     var connected : Bool = false
     
     var logicGame : LogicGame?
-    static var playerModel : playersList?
+    //static var playerModel : playersList?
     
     
     init?(scene: LogicGame) {
         
         logicGame = scene
-
+        
         queue = DispatchQueue(label: "UDP Server Queue")
         //create the listener
         listener = try! NWListener(using: .udp, on: .http)
@@ -34,8 +34,8 @@ class UDPServer {
             switch (serviceChange) {
             case .add(let endpoint):
                 switch endpoint {
-                    case let .service(name, _, _, _):
-                        print("Servidor aberto com o nome - \(name)")
+                case let .service(name, _, _, _):
+                    print("Servidor aberto com o nome - \(name)")
                 @unknown default:
                     break
                 }
@@ -52,6 +52,7 @@ class UDPServer {
             if let strongSelf = self {
                 newConnection.start(queue: strongSelf.queue)
                 strongSelf.receive(on: newConnection)
+                
             }
             print("o jogador\(newConnection.currentPath)conectou-se")
             
@@ -71,10 +72,10 @@ class UDPServer {
                 break
             }
         }
- 
+        
         //start the listener
         listener.start(queue: queue)
-       
+        
         
         
     }
@@ -82,9 +83,14 @@ class UDPServer {
     struct sendAndReceiveMsgsCodable : Codable {
         var playerId: String?
         var points : CGPoint?
-    
+        
     }
-
+    
+    struct sendAndReceiveMsgsCodableList : Codable {
+        var playerKey: [sendAndReceiveMsgsCodable] = []
+        
+    }
+    
     
     //receive packets from the other side and push to scren as videos
     func receive(on connection: NWConnection){
@@ -92,29 +98,50 @@ class UDPServer {
             // Extract your message type from the received context.
             if let frame = content {
                 if !self.connected {
-                    connection.send(content: frame, completion: .idempotent)
-                     let decoder = JSONDecoder()
+                    //connection.send(content: frame, completion: .idempotent)
+                    let decoder = JSONDecoder()
                     if let dataReceived = try? decoder.decode(sendAndReceiveMsgsCodable.self, from: frame) {
                         if let ObjId = dataReceived.playerId {
-                        
+                            
                             print("msg recebida : \(ObjId)")
                             
                             if let ObjPosition = dataReceived.points {
-                                   print("msg recebida Points : \(ObjPosition)")
+                                print("msg recebida Points : \(ObjPosition)")
                                 
-                               self.logicGame?.movePlayer(points: ObjPosition, name: ObjId)
+                                self.logicGame?.movePlayer(points: ObjPosition, name: ObjId)
+                                
+                                
                                 
                             }
                         }
                     }
-  
-                   // self.connected = true
+                    //
+                    //                    // self.connected = true
+                    
+                    if error == nil {
+                        //connection.send(content: frame, completion: .idempotent)
+                                           var serverResponse = sendAndReceiveMsgsCodableList()
+                                           serverResponse.playerKey.append(sendAndReceiveMsgsCodable(playerId: self.logicGame?.player1.name , points: self.logicGame?.player1.position))
+                                          
+                                           let encoder = JSONEncoder()
+                                           
+                                           if let encodedData = try? encoder.encode(serverResponse){
+                                               connection.send(content: encodedData, completion: .contentProcessed({ (error)  in
+                                                   print("Enviado Position Player")
+                                                   if let error = error {
+                                                       print("erro ao enviar dados\(error)")
+                                                   }
+                                               }))
+                        }
+                        self.receive(on: connection)
+                    }
+                    
+                    
+                    
                 }else {
                     print("nao deu")
-                }
-                
-                if error == nil {
-                    self.receive(on: connection)
+                    print("error do receive")
+                    
                 }
             }
             
@@ -123,8 +150,19 @@ class UDPServer {
     }
     
     
- 
     
+    //    func send(frames: [Data]) {
+    //        connection.batch {
+    //            for frame in frames {
+    //                connection.send(content: frame, completion: .contentProcessed({(error) in
+    //                    print("empacotando data \(frame)")
+    //                    if let error = error {
+    //                        print("Send error: \(error)")
+    //                    }
+    //                }))
+    //            }
+    //        }
+    //    }
     
 }
 

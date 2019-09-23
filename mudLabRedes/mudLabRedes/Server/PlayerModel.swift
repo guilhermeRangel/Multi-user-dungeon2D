@@ -10,17 +10,17 @@ import Foundation
 import SpriteKit
 
 
-struct playersList{
+struct playersList : Codable{
     var players : [playerModel]? = []
     var countPlayer : Int = 0
 }
 
-struct playerModel {
-    var player : SKSpriteNode?
+struct playerModel : Codable {
+    var id : String?
     var position : CGPoint?
-    var stateDungeon = 0
-    var key = false
-    var cores = 0
+    var stateDungeon : Int?
+    var key : Bool?
+    var cores : Int?
  
 
 }

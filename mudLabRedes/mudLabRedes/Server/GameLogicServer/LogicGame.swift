@@ -16,7 +16,7 @@ class LogicGame: SKScene, SKPhysicsContactDelegate {
     var modelPlayerList : playersList = playersList()
     
     var player1 = SKSpriteNode(imageNamed: "p1")
-     var player2 = SKSpriteNode(imageNamed: "p2")
+    var player2 = SKSpriteNode(imageNamed: "p2")
     var ground = SKSpriteNode(imageNamed: "bg")
     var misturador = SKSpriteNode(imageNamed: "misturador")
     
@@ -46,21 +46,26 @@ class LogicGame: SKScene, SKPhysicsContactDelegate {
             player1.position = points
             
             for var p in modelPlayerList.players! {
-               if  (p.player?.name == "player1") {
-                p.player = player1
-                
+                if  (p.id == "player1") {
+                    
+                    p.id = "player1"
+                    p.position = points
+                    
                 }
             }
             
+            
+            
         }else if name == "player2"{
-             player2.position = points
+            player2.position = points
             
             for var p in modelPlayerList.players! {
-                          if  (p.player?.name == "player2") {
-                           p.player = player2
-                           
-                           }
-                       }
+                if  (p.id == "player2") {
+                    p.id = "player2"
+                    p.position = points
+                    
+                }
+            }
         }
         
         
@@ -110,27 +115,26 @@ class LogicGame: SKScene, SKPhysicsContactDelegate {
         if modelPlayerList.countPlayer == 0 {
             player.name = "player1"
             player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-                  player.position = CGPoint(x: 0, y: 0)
-                  player.size = CGSize(width: 65, height: 65)
-                  player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: (player.size.width), height: (player.size.height)), center: .zero)
-                  player.physicsBody?.affectedByGravity = false
-                  player.physicsBody?.isDynamic = true
-                  player.physicsBody?.categoryBitMask = 0b1
-                  player.physicsBody?.contactTestBitMask =  0b10
-                  //player.physicsBody?.collisionBitMask = 0b10000
-                  player.physicsBody?.allowsRotation = false
-                  player.zPosition = 3
-                  
-                modelPlayer.key = false
-                 modelPlayer.cores = 0
-                 modelPlayer.stateDungeon = 0
-                 modelPlayer.position = player1.position
-                 modelPlayer.player = player1
-                 modelPlayerList.players?.append(modelPlayer)
-                 modelPlayerList.countPlayer += 1
+            player.position = CGPoint(x: 0, y: 0)
+            player.size = CGSize(width: 65, height: 65)
+            player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: (player.size.width), height: (player.size.height)), center: .zero)
+            player.physicsBody?.affectedByGravity = false
+            player.physicsBody?.isDynamic = true
+            player.physicsBody?.categoryBitMask = 0b1
+            player.physicsBody?.contactTestBitMask =  0b10
+            //player.physicsBody?.collisionBitMask = 0b10000
+            player.physicsBody?.allowsRotation = false
+            player.zPosition = 3
+            
+            modelPlayer.key = false
+            modelPlayer.cores = 0
+            modelPlayer.stateDungeon = 0
+            modelPlayer.position = player1.position
+            modelPlayerList.players?.append(modelPlayer)
+            modelPlayerList.countPlayer += 1
             
             
-                  scene?.addChild(player)
+            scene?.addChild(player)
             
             
             
@@ -139,31 +143,30 @@ class LogicGame: SKScene, SKPhysicsContactDelegate {
         }else{
             player2.name = "player2"
             player2.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-                             player2.position = CGPoint(x: 0, y: 0)
-                             player2.size = CGSize(width: 65, height: 65)
-                             player2.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: (player2.size.width), height: (player2.size.height)), center: .zero)
-                             player2.physicsBody?.affectedByGravity = false
-                             player2.physicsBody?.isDynamic = true
-                             player2.physicsBody?.categoryBitMask = 0b1
-                             player2.physicsBody?.contactTestBitMask =  0b10
-                             //player.physicsBody?.collisionBitMask = 0b10000
-                             player2.physicsBody?.allowsRotation = false
-                             player2.zPosition = 3
-                             
-                             
+            player2.position = CGPoint(x: 0, y: 0)
+            player2.size = CGSize(width: 65, height: 65)
+            player2.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: (player2.size.width), height: (player2.size.height)), center: .zero)
+            player2.physicsBody?.affectedByGravity = false
+            player2.physicsBody?.isDynamic = true
+            player2.physicsBody?.categoryBitMask = 0b1
+            player2.physicsBody?.contactTestBitMask =  0b10
+            //player.physicsBody?.collisionBitMask = 0b10000
+            player2.physicsBody?.allowsRotation = false
+            player2.zPosition = 3
+            
+            
             modelPlayer.key = false
             modelPlayer.cores = 0
             modelPlayer.stateDungeon = 0
             modelPlayer.position = player2.position
-            modelPlayer.player = player2
             modelPlayerList.players?.append(modelPlayer)
             modelPlayerList.countPlayer += 1
             scene?.addChild(player2)
             
-             return player2
+            return player2
         }
         
-      
+        
         
         
         
