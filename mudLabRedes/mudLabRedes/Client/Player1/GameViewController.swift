@@ -16,7 +16,7 @@ class GameViewController: UIViewController {
     
     
     var scene: GameScene?
-    
+   // var clientSv : UDPClient?
     fileprivate func createScene() {
         scene = GameScene(size: view.bounds.size)
         skview.showsFPS = true
@@ -33,9 +33,9 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         createScene()
-       
+           
     }
 
 

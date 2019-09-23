@@ -44,6 +44,14 @@ class LogicGame: SKScene, SKPhysicsContactDelegate {
         
         if name == "player1" {
             player1.position = points
+            
+            for var p in modelPlayerList.players! {
+               if  (p.player?.name == "player1") {
+                p.player = player1
+                
+                }
+            }
+            
         }else if name == "player2"{
              player2.position = points
         }
@@ -65,7 +73,9 @@ class LogicGame: SKScene, SKPhysicsContactDelegate {
         
     }
     
-    
+    func instance () -> playersList{
+        return modelPlayerList
+    }
     
     
     

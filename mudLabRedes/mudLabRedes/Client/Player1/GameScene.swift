@@ -12,17 +12,17 @@ import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
-    MARK
+   // MARK
     //fazer o p1 enxergar o p2, acredito q o server deva enviar um ack de volta para poder fazer isso
     
     var player2 = SKSpriteNode(imageNamed: "p2")
-    
-    var model : playersList = playersList()
+    var move = false
+
     
     var player = SKSpriteNode(imageNamed: "p1")
     var server : UDPServer?
     var client : UDPClient?
-    var logicGame : LogicGame?
+   
     
     var ground = SKSpriteNode(imageNamed: "bg")
     var misturador = SKSpriteNode(imageNamed: "misturador")
@@ -35,12 +35,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         physicsWorld.contactDelegate = self
 
-        client = UDPClient()
+        
         createPlayer()
-        client?.sendInitialFrame(position: player.position, node: player)
         createGround()
         createMisturador()
         createEmptyNode()
+        
+        client = UDPClient(scene: self, scene2: nil)
+           client?.sendInitialFrame(position: player.position, node: player)
         
     }
     
@@ -50,8 +52,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override public func touchesBegan ( _ touches: Set<UITouch>, with event: UIEvent?) {
         
         if let location = touches.first?.location(in: self){
-            player.run(SKAction.move(to: location, duration: 3))
-            client?.sendFrame(node: player)
+            player.position = location
+            move = true
+           
+            
             
         }
     }
@@ -75,6 +79,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.zPosition = 3
         addChild(player)
     }
+    
+    func createPlayer2(){
+         player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+         player.position = CGPoint(x: 0, y: 0)
+         player.size = CGSize(width: 65, height: 65)
+         player.name = "player2"
+         player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: (player.size.width), height: (player.size.height)), center: .zero)
+         player.physicsBody?.affectedByGravity = false
+         player.physicsBody?.isDynamic = true
+         player.physicsBody?.categoryBitMask = 0b1
+         player.physicsBody?.contactTestBitMask =  0b10
+         //player.physicsBody?.collisionBitMask = 0b10000
+         player.physicsBody?.allowsRotation = false
+         player.zPosition = 3
+         addChild(player2)
+     }
     
     func createEmptyNode(){
         dorEsq.name = "dorEsq"
@@ -155,6 +175,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func update(_ currentTime: TimeInterval) {
         
+        if move == true {
+            move = false
+            client?.sendFrame(node: player)
+        }
+         
     }
     
     

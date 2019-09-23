@@ -17,12 +17,13 @@ class UDPServer {
     var connected : Bool = false
     
     var logicGame : LogicGame?
-    var playerModel : playersList?
+    static var playerModel : playersList?
+    
     
     init?(scene: LogicGame) {
         
         logicGame = scene
-        
+
         queue = DispatchQueue(label: "UDP Server Queue")
         //create the listener
         listener = try! NWListener(using: .udp, on: .http)
@@ -70,9 +71,10 @@ class UDPServer {
                 break
             }
         }
-        
+ 
         //start the listener
         listener.start(queue: queue)
+       
         
         
     }
@@ -118,6 +120,9 @@ class UDPServer {
             
         }
     }
+    
+    
+ 
     
     
 }

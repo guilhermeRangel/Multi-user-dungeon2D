@@ -19,7 +19,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var label: UILabel!
     var logins : [String : String] = ["admin": "admin",
                                       "p1" : "1234",
-                                      "p2" : "1234"]
+                                      "p2" : "1234",
+                                      "p3" : "1234"]
     
     var gameViewController : GameViewController?
     var gameViewController2 : GameViewController2?

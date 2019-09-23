@@ -31,7 +31,7 @@ class GameScene2: SKScene, SKPhysicsContactDelegate {
         
         
         
-        client = UDPClient()
+        client = UDPClient(scene: nil, scene2: self)
         createPlayer()
         client?.sendInitialFrame(position: player.position, node: player)
         createGround()

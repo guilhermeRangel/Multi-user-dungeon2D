@@ -63,8 +63,8 @@
                                     <segue destination="zCS-8I-yLZ" kind="show" id="xnT-pt-Xbo"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TTf-dG-gMv">
-                                <rect key="frame" x="136" y="188" width="143" height="66"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TTf-dG-gMv">
+                                <rect key="frame" x="136" y="188" width="142" height="66"/>
                                 <color key="backgroundColor" red="0.98932045698165894" green="0.7310071587562561" blue="0.11330918222665787" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="66" id="TcY-hU-wQl"/>
@@ -78,10 +78,13 @@
                                     <segue destination="Tun-sU-dKT" kind="show" id="9U8-nV-zbB"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dsI-ok-dMF">
-                                <rect key="frame" x="99" y="666" width="216" height="83"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="enter2"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dsI-ok-dMF">
+                                <rect key="frame" x="136" y="262" width="143" height="47"/>
+                                <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                <state key="normal" title="enter2">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="player2:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Lct-Jq-p4k"/>
                                     <segue destination="FNe-4E-qSG" kind="show" id="fRb-Pg-zBO"/>
@@ -93,6 +96,7 @@
                             <constraint firstItem="MED-VR-pBR" firstAttribute="top" secondItem="3dk-Du-fhC" secondAttribute="bottom" constant="43" id="2VS-Vm-Wr6"/>
                             <constraint firstItem="MED-VR-pBR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="99" id="3m8-sz-U3l"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="3dk-Du-fhC" secondAttribute="trailing" constant="99" id="5Yb-uj-cdV"/>
+                            <constraint firstItem="dsI-ok-dMF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="136" id="89I-bK-aj6"/>
                             <constraint firstItem="HL0-2t-QSs" firstAttribute="top" secondItem="MED-VR-pBR" secondAttribute="bottom" constant="42" id="8x2-8o-jWd"/>
                             <constraint firstItem="MED-VR-pBR" firstAttribute="leading" secondItem="3dk-Du-fhC" secondAttribute="leading" id="Aff-LR-dhj"/>
                             <constraint firstItem="lq8-PY-EdY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="18" id="CrX-cJ-C4G"/>
@@ -114,6 +118,8 @@
                             <constraint firstItem="MED-VR-pBR" firstAttribute="centerX" secondItem="TTf-dG-gMv" secondAttribute="centerX" id="vAQ-eQ-I5S"/>
                             <constraint firstItem="lq8-PY-EdY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="xqn-BC-spj"/>
                             <constraint firstItem="3dk-Du-fhC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="99" id="yTe-ks-gx9"/>
+                            <constraint firstItem="dsI-ok-dMF" firstAttribute="top" secondItem="TTf-dG-gMv" secondAttribute="bottom" constant="8" id="zNc-Yn-ngD"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dsI-ok-dMF" secondAttribute="trailing" constant="135" id="zO6-rc-gT7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -125,7 +131,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137.68115942028987" y="114.50892857142857"/>
+            <point key="canvasLocation" x="-1174" y="51"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="mqf-5S-HCX">
@@ -175,7 +181,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FpZ-m1-KLP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="138" y="-914"/>
+            <point key="canvasLocation" x="138" y="-719"/>
         </scene>
         <!--Game Server View Controller-->
         <scene sceneID="vSO-ag-Raa">
@@ -200,7 +206,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qbm-3A-Ent" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="881" y="847"/>
+            <point key="canvasLocation" x="149" y="861"/>
         </scene>
     </scenes>
     <resources>

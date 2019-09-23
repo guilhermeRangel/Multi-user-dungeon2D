@@ -33,7 +33,7 @@ class GameViewController2: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("entrei")
+
         createScene()
        
     }
