@@ -13,17 +13,17 @@ import SpriteKit
 class UDPClient {
     var connection: NWConnection
     var queue: DispatchQueue
-    var playerScene : GameScene?
-    var playerScene2 : GameScene2?
+    var playerScene : Any?
+    
     var modelServer : LogicGame?
     var modelPlayers : playersList? = playersList()
-    
+    var createNodes = CreateNodes()
     
     init(scene: GameScene?, scene2: GameScene2?) {
         if scene != nil {
             playerScene = scene
         }else if scene2 != nil {
-            playerScene2 = scene2
+            playerScene = scene2
         }
         
         queue = DispatchQueue(label: "UDP Client Queue")
@@ -45,10 +45,20 @@ class UDPClient {
             
         }
         
-        //inicia a conecxao
-        
-        
+        initElements()
         connection.start(queue: queue)
+    }
+    
+    func initElements(){
+        if let scene = playerScene as? GameScene{
+            createNodes.initAllNodes(scene: scene, player: scene.player1, ground: scene.ground, misturador: scene.misturador,
+                                     dorEsq: scene.dorEsq, dorDir: scene.dorDir, dorBaixo: scene.dorBaixo, dorCima: scene.dorCima)
+            
+        }else if let scene = playerScene as? GameScene2{
+            createNodes.initAllNodes(scene: scene, player: scene.player2, ground: scene.ground, misturador: scene.misturador,
+                                              dorEsq: scene.dorEsq, dorDir: scene.dorDir, dorBaixo: scene.dorBaixo, dorCima: scene.dorCima)
+        }
+        
     }
     
     
@@ -60,6 +70,7 @@ class UDPClient {
         
         connection.send(content: data, completion: .contentProcessed({ (error)  in
             print("Dados enviados com sucesso!")
+            
             if let error = error {
                 print("erro ao enviar dados\(error)")
             }
@@ -86,7 +97,7 @@ class UDPClient {
         guard let data = try? encoder.encode(idAndPosition) else {return print("erro Encode")}
         
         connection.send(content: data, completion: .contentProcessed({ (error)  in
-            print("Enviado Position Player")
+            print("Enviado Position Player ok ")
             if let error = error {
                 print("erro ao enviar dados\(error)")
             }
@@ -102,7 +113,7 @@ class UDPClient {
             if content != nil {
                 if let frame = content {
                     
-                     self.connection.send(content: frame, completion: .idempotent)
+                    self.connection.send(content: frame, completion: .idempotent)
                     let decoder2 = JSONDecoder()
                     
                     if let dataReceived = try? decoder2.decode(UDPServer.sendAndReceiveMsgsCodableList.self, from: frame) {

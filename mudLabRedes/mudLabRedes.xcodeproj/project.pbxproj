@@ -19,6 +19,7 @@
 		7738C5AF23370CAD001AA843 /* GameServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7738C5AE23370CAD001AA843 /* GameServerViewController.swift */; };
 		7738C5B323382BD4001AA843 /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7738C5B223382BD4001AA843 /* PlayerModel.swift */; };
 		774B8D4A23326003006DA98D /* UDPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774B8D4923326003006DA98D /* UDPClient.swift */; };
+		77559061233BB4A10014116A /* CreateNodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77559060233BB4A10014116A /* CreateNodes.swift */; };
 		77608C5023306961004C07FD /* UDPServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77608C4F23306961004C07FD /* UDPServer.swift */; };
 		779D727723387BA100C7E785 /* GameViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779D727623387BA100C7E785 /* GameViewController2.swift */; };
 		779D727923387BC200C7E785 /* GameScene2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779D727823387BC200C7E785 /* GameScene2.swift */; };
@@ -39,6 +40,7 @@
 		7738C5AE23370CAD001AA843 /* GameServerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameServerViewController.swift; sourceTree = "<group>"; };
 		7738C5B223382BD4001AA843 /* PlayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
 		774B8D4923326003006DA98D /* UDPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UDPClient.swift; sourceTree = "<group>"; };
+		77559060233BB4A10014116A /* CreateNodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNodes.swift; sourceTree = "<group>"; };
 		77608C4F23306961004C07FD /* UDPServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UDPServer.swift; sourceTree = "<group>"; };
 		779D727623387BA100C7E785 /* GameViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController2.swift; sourceTree = "<group>"; };
 		779D727823387BC200C7E785 /* GameScene2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene2.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				772D84A2232729F200B1CEB5 /* AppDelegate.swift */,
 				772D84A4232729F200B1CEB5 /* ViewController.swift */,
 				772D84AE232729F300B1CEB5 /* Info.plist */,
+				77559060233BB4A10014116A /* CreateNodes.swift */,
 			);
 			path = mudLabRedes;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 				772D84A5232729F200B1CEB5 /* ViewController.swift in Sources */,
 				7738C5AF23370CAD001AA843 /* GameServerViewController.swift in Sources */,
 				77128BE02336FED0002C2274 /* GameScene.swift in Sources */,
+				77559061233BB4A10014116A /* CreateNodes.swift in Sources */,
 				779D727723387BA100C7E785 /* GameViewController2.swift in Sources */,
 				7738C5B323382BD4001AA843 /* PlayerModel.swift in Sources */,
 				772D84A3232729F200B1CEB5 /* AppDelegate.swift in Sources */,

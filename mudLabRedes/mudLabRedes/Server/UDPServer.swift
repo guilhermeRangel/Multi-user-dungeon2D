@@ -17,9 +17,8 @@ class UDPServer {
     var connected : Bool = false
     
     var logicGame : LogicGame?
-    //static var playerModel : playersList?
-    
-    
+    var createNodes = CreateNodes()
+ 
     init?(scene: LogicGame) {
         
         logicGame = scene
@@ -74,6 +73,9 @@ class UDPServer {
         }
         
         //start the listener
+        createNodes.initAllNodes(scene: logicGame!, player: logicGame!.player1, ground: logicGame!.ground, misturador: logicGame!.misturador,
+                                 dorEsq: logicGame!.dorEsq, dorDir: logicGame!.dorDir, dorBaixo: logicGame!.dorBaixo, dorCima: logicGame!.dorCima)
+        createNodes.createPlayer2(scene: logicGame!, nodo: logicGame!.player2)
         listener.start(queue: queue)
         
         
@@ -144,25 +146,8 @@ class UDPServer {
                     
                 }
             }
-            
         }
-        
     }
-    
-    
-    
-    //    func send(frames: [Data]) {
-    //        connection.batch {
-    //            for frame in frames {
-    //                connection.send(content: frame, completion: .contentProcessed({(error) in
-    //                    print("empacotando data \(frame)")
-    //                    if let error = error {
-    //                        print("Send error: \(error)")
-    //                    }
-    //                }))
-    //            }
-    //        }
-    //    }
-    
+
 }
 

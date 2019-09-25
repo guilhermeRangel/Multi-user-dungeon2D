@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var login: UITextField!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var label: UILabel!
+    
     var logins : [String : String] = ["admin": "admin",
                                       "p1" : "1234",
                                       "p2" : "1234",
@@ -27,6 +28,7 @@ class ViewController: UIViewController {
         for l in logins {
             if ((l.key == login.text) && (l.value == password.text)){
                 if login.text! == "p1" {
+                    
                     guard let viewController = story?.instantiateViewController(withIdentifier: "p1") else { return  }
                     self.present(viewController, animated: true, completion: nil)
                     
