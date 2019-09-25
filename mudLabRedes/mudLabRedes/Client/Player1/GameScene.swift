@@ -12,14 +12,10 @@ import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
-   // MARK
-    //fazer o p1 enxergar o p2, acredito q o server deva enviar um ack de volta para poder fazer isso
-    
+    var player = SKSpriteNode(imageNamed: "p1")
     var player2 = SKSpriteNode(imageNamed: "p2")
     var move = false
 
-    
-    var player = SKSpriteNode(imageNamed: "p1")
     var server : UDPServer?
     var client : UDPClient?
    
@@ -35,14 +31,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         physicsWorld.contactDelegate = self
 
-        
         createPlayer()
         createGround()
         createMisturador()
         createEmptyNode()
-        
         client = UDPClient(scene: self, scene2: nil)
-           client?.sendInitialFrame(position: player.position, node: player)
+        client?.sendInitialFrame(position: player.position, node: player)
         
     }
     

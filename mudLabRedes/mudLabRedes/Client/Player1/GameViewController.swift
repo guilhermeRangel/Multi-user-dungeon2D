@@ -13,10 +13,7 @@ class GameViewController: UIViewController {
     
     @IBOutlet weak var skview: SKView!
     
-    
-    
     var scene: GameScene?
-   // var clientSv : UDPClient?
     fileprivate func createScene() {
         scene = GameScene(size: view.bounds.size)
         skview.showsFPS = true
@@ -27,13 +24,9 @@ class GameViewController: UIViewController {
         scene?.physicsBody = SKPhysicsBody.init(edgeLoopFrom: scene!.frame)
         skview.presentScene(scene!)
     }
-    
-   
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+  
         createScene()
            
     }

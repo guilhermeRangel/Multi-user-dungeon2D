@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
@@ -13,24 +13,24 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="mudLabRedes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="DqD-OU-oGz">
-                                <rect key="frame" x="-95" y="-279" width="604" height="1455"/>
+                                <rect key="frame" x="-95" y="-279" width="565" height="1371"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MUC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lq8-PY-EdY">
-                                <rect key="frame" x="20" y="62" width="374" height="118"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MUDC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lq8-PY-EdY">
+                                <rect key="frame" x="20" y="62" width="335" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="118" id="OrX-Xk-sCl"/>
                                     <constraint firstAttribute="width" constant="374" id="m1R-9s-1TC"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="37"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="48"/>
                                 <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="p1" borderStyle="roundedRect" placeholder="Login:" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3dk-Du-fhC">
-                                <rect key="frame" x="99" y="369" width="216" height="34"/>
+                                <rect key="frame" x="99" y="285" width="177" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="GCs-Ob-mrZ"/>
                                     <constraint firstAttribute="width" constant="216" id="J0W-LR-naC"/>
@@ -39,7 +39,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1234" borderStyle="roundedRect" placeholder="Password:" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MED-VR-pBR">
-                                <rect key="frame" x="99" y="446" width="216" height="34"/>
+                                <rect key="frame" x="99" y="362" width="177" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="216" id="CAk-qq-JdY"/>
                                     <constraint firstAttribute="height" constant="34" id="KJI-T4-AGZ"/>
@@ -48,7 +48,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HL0-2t-QSs">
-                                <rect key="frame" x="99" y="522" width="216" height="85"/>
+                                <rect key="frame" x="99" y="438" width="177" height="85"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="216" id="1ez-tF-McL"/>
@@ -59,35 +59,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="player1:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nmC-3n-LYl"/>
-                                    <segue destination="zCS-8I-yLZ" kind="show" id="xnT-pt-Xbo"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TTf-dG-gMv">
-                                <rect key="frame" x="136" y="188" width="142" height="66"/>
-                                <color key="backgroundColor" red="0.98932045698165894" green="0.7310071587562561" blue="0.11330918222665787" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="66" id="TcY-hU-wQl"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="Server">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="server:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ogE-2m-w1Z"/>
-                                    <segue destination="Tun-sU-dKT" kind="show" id="9U8-nV-zbB"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dsI-ok-dMF">
-                                <rect key="frame" x="136" y="262" width="143" height="47"/>
-                                <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
-                                <state key="normal" title="enter2">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="player2:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Lct-Jq-p4k"/>
-                                    <segue destination="FNe-4E-qSG" kind="show" id="fRb-Pg-zBO"/>
+                                    <action selector="btn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BC2-vF-Fqy"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -96,7 +68,6 @@
                             <constraint firstItem="MED-VR-pBR" firstAttribute="top" secondItem="3dk-Du-fhC" secondAttribute="bottom" constant="43" id="2VS-Vm-Wr6"/>
                             <constraint firstItem="MED-VR-pBR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="99" id="3m8-sz-U3l"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="3dk-Du-fhC" secondAttribute="trailing" constant="99" id="5Yb-uj-cdV"/>
-                            <constraint firstItem="dsI-ok-dMF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="136" id="89I-bK-aj6"/>
                             <constraint firstItem="HL0-2t-QSs" firstAttribute="top" secondItem="MED-VR-pBR" secondAttribute="bottom" constant="42" id="8x2-8o-jWd"/>
                             <constraint firstItem="MED-VR-pBR" firstAttribute="leading" secondItem="3dk-Du-fhC" secondAttribute="leading" id="Aff-LR-dhj"/>
                             <constraint firstItem="lq8-PY-EdY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="18" id="CrX-cJ-C4G"/>
@@ -112,14 +83,9 @@
                             <constraint firstItem="HL0-2t-QSs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="99" id="dUF-Hk-hw1"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="lq8-PY-EdY" secondAttribute="trailing" constant="20" id="e7q-3T-KBl"/>
                             <constraint firstItem="MED-VR-pBR" firstAttribute="top" secondItem="3dk-Du-fhC" secondAttribute="bottom" constant="43" id="ip7-m6-B5R"/>
-                            <constraint firstItem="TTf-dG-gMv" firstAttribute="top" secondItem="lq8-PY-EdY" secondAttribute="bottom" constant="8" id="keP-Qd-91e"/>
-                            <constraint firstItem="TTf-dG-gMv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="136" id="ryT-3e-FcQ"/>
                             <constraint firstItem="DqD-OU-oGz" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="-95" id="syO-eq-8gk"/>
-                            <constraint firstItem="MED-VR-pBR" firstAttribute="centerX" secondItem="TTf-dG-gMv" secondAttribute="centerX" id="vAQ-eQ-I5S"/>
                             <constraint firstItem="lq8-PY-EdY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="xqn-BC-spj"/>
                             <constraint firstItem="3dk-Du-fhC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="99" id="yTe-ks-gx9"/>
-                            <constraint firstItem="dsI-ok-dMF" firstAttribute="top" secondItem="TTf-dG-gMv" secondAttribute="bottom" constant="8" id="zNc-Yn-ngD"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dsI-ok-dMF" secondAttribute="trailing" constant="135" id="zO6-rc-gT7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -136,9 +102,9 @@
         <!--Game View Controller-->
         <scene sceneID="mqf-5S-HCX">
             <objects>
-                <viewController id="zCS-8I-yLZ" customClass="GameViewController" customModule="mudLabRedes" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="p1" useStoryboardIdentifierAsRestorationIdentifier="YES" id="zCS-8I-yLZ" customClass="GameViewController" customModule="mudLabRedes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QTg-zj-zuc">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <skView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v0f-wp-dqq">
@@ -151,19 +117,19 @@
                     </view>
                     <navigationItem key="navigationItem" id="OO6-xr-OUu"/>
                     <connections>
-                        <outlet property="skview" destination="v0f-wp-dqq" id="4t0-zD-JOG"/>
+                        <outlet property="skview" destination="v0f-wp-dqq" id="poc-4h-1TG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rg6-RN-OED" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1021.7391304347827" y="112.5"/>
+            <point key="canvasLocation" x="-487" y="51"/>
         </scene>
         <!--Game View Controller2-->
         <scene sceneID="PN4-2c-4lt">
             <objects>
-                <viewController id="FNe-4E-qSG" customClass="GameViewController2" customModule="mudLabRedes" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="p2" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FNe-4E-qSG" customClass="GameViewController2" customModule="mudLabRedes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dxL-TT-5k4">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <skView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3AP-qS-kJW">
@@ -181,14 +147,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FpZ-m1-KLP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="138" y="-719"/>
+            <point key="canvasLocation" x="193" y="51"/>
         </scene>
         <!--Game Server View Controller-->
         <scene sceneID="vSO-ag-Raa">
             <objects>
-                <viewController id="Tun-sU-dKT" customClass="GameServerViewController" customModule="mudLabRedes" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="server" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Tun-sU-dKT" customClass="GameServerViewController" customModule="mudLabRedes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vfg-1F-qdv">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <skView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7rz-Ud-IQt">
@@ -206,7 +172,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qbm-3A-Ent" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="149" y="861"/>
+            <point key="canvasLocation" x="879" y="51"/>
         </scene>
     </scenes>
     <resources>

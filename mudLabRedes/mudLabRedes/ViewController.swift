@@ -11,83 +11,48 @@ import Network
 
 
 class ViewController: UIViewController {
-
+    
     @IBOutlet weak var login: UITextField!
-    
     @IBOutlet weak var password: UITextField!
-    
     @IBOutlet weak var label: UILabel!
     var logins : [String : String] = ["admin": "admin",
                                       "p1" : "1234",
                                       "p2" : "1234",
                                       "p3" : "1234"]
+
+    var story : UIStoryboard?
     
-    var gameViewController : GameViewController?
-    var gameViewController2 : GameViewController2?
-    var logicGameServer : GameServerViewController?
-    
-    
-    
-    
-    @IBAction func server(_ sender: UIButton) {
-        label.text = "SERVER"
-        // SERVER
-        logicGameServer = GameServerViewController()
-    }
-    
-    @IBAction func player1(_ sender: UIButton) {
-        label.text = "CLIENT"
-        // CLIENT
-        
-       
-      
-            for l in logins {
-                if ((l.key == login.text) && (l.value == password.text)){
+    @IBAction func btn(_ sender: UIButton) {
+        story = UIStoryboard(name: "Main", bundle: nil)
+        for l in logins {
+            if ((l.key == login.text) && (l.value == password.text)){
+                if login.text! == "p1" {
+                    guard let viewController = story?.instantiateViewController(withIdentifier: "p1") else { return  }
+                    self.present(viewController, animated: true, completion: nil)
                     
-                    if l.key == "p1" {
-                        gameViewController = GameViewController()
-                    }else if l.key == "p2" {
-                        
-                        gameViewController2 = GameViewController2()
-                    }
+                }else if login.text! == "p2" {
+                    guard let viewController = story?.instantiateViewController(withIdentifier: "p2") else { return  }
+                    self.present(viewController, animated: true, completion: nil)
+               
+                }else if login.text! == "admin"{
+                    guard let viewController = story?.instantiateViewController(withIdentifier: "server") else { return  }
+                    self.present(viewController, animated: true, completion: nil)
                 }
                 
-            
-            
+                
+            }
         }
-        
-        
     }
     
-    @IBAction func player2(_ sender: UIButton) {
-        
-        for l in logins {
-                       if ((l.key == login.text) && (l.value == password.text)){
-                           
-                           if l.key == "p1" {
-                               gameViewController = GameViewController()
-                           }else if l.key == "p2" {
-                               
-                               gameViewController2 = GameViewController2()
-                           }
-                       }
-                       
-                   
-                   
-               }
-    }
+    
+    
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
-        
     }
-    
-    
 }
 
 
