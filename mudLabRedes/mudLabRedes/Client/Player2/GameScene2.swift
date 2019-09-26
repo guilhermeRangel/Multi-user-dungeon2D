@@ -14,7 +14,7 @@ class GameScene2: SKScene, SKPhysicsContactDelegate {
     var player1 = SKSpriteNode(imageNamed: "p1")
     var player2 = SKSpriteNode(imageNamed: "p2")
     var ground = SKSpriteNode(imageNamed: "bg")
-     var misturador = SKSpriteNode(imageNamed: "misturador")
+    var misturador = SKSpriteNode(imageNamed: "misturador")
     
     
     var client : UDPClient?
@@ -29,7 +29,7 @@ class GameScene2: SKScene, SKPhysicsContactDelegate {
         scene?.name = "player2"
         client = UDPClient(scene: nil, scene2: self)
         client?.sendInitialFrame(position: player2.position, node: player2)
-       
+        
         
     }
     
@@ -39,17 +39,22 @@ class GameScene2: SKScene, SKPhysicsContactDelegate {
     override public func touchesBegan ( _ touches: Set<UITouch>, with event: UIEvent?) {
         
         if let location = touches.first?.location(in: self){
-            player2.run(SKAction.move(to: location, duration: 3))
+            player2.position = location
             client?.sendFrame(node: player2)
             
         }
     }
     
-
-    override func update(_ currentTime: TimeInterval) {
-        
-    }
     
+    var timeSpawn: Double = 0
+       override func update(_ currentTime: TimeInterval) {
+//        if timeSpawn + 0.5 <= currentTime {
+//           print("hora de mandar")
+//           client?.sendFrame(node: player2)
+//           timeSpawn = currentTime
+//           }
+            client?.sendFrame(node: player2)
+       }
     
     
     

@@ -12,8 +12,9 @@ import GameplayKit
 class GameViewController: UIViewController {
     
     @IBOutlet weak var skview: SKView!
-    var idPlayer : String?
+    
     var scene: GameScene?
+    
     fileprivate func createScene() {
         scene = GameScene(size: view.bounds.size)
         skview.showsFPS = true

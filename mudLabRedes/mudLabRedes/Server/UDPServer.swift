@@ -15,10 +15,10 @@ class UDPServer {
     var listener : NWListener
     var queue : DispatchQueue
     var connected : Bool = false
-    
+    var serverResponse = sendAndReceiveMsgsCodableList()
     var logicGame : LogicGame?
     var createNodes = CreateNodes()
- 
+    
     init?(scene: LogicGame) {
         
         logicGame = scene
@@ -76,6 +76,7 @@ class UDPServer {
         createNodes.initAllNodes(scene: logicGame!, player: logicGame!.player1, ground: logicGame!.ground, misturador: logicGame!.misturador,
                                  dorEsq: logicGame!.dorEsq, dorDir: logicGame!.dorDir, dorBaixo: logicGame!.dorBaixo, dorCima: logicGame!.dorCima)
         createNodes.createPlayer2(scene: logicGame!, nodo: logicGame!.player2)
+        
         listener.start(queue: queue)
         
         
@@ -108,32 +109,72 @@ class UDPServer {
                             print("msg recebida : \(ObjId)")
                             
                             if let ObjPosition = dataReceived.points {
-                                print("msg recebida Points : \(ObjPosition)")
                                 
                                 self.logicGame?.movePlayer(points: ObjPosition, name: ObjId)
                                 
+                                print("msg recebida Points : \(ObjPosition)")
                                 
                                 
-                            }
+                                if ObjId == "player1"{
+                                    if self.serverResponse.playerKey.count == 0 {
+                                        self.serverResponse.playerKey.append(sendAndReceiveMsgsCodable(playerId: ObjId , points: ObjPosition))
+                                        //popula s model do server para futuros delegates
+                                        self.logicGame?.modelPlayer.id = ObjId
+                                        self.logicGame?.modelPlayer.position = ObjPosition
+                                        
+                                        self.logicGame?.modelPlayer.key = false
+                                        self.logicGame?.modelPlayer.stateDungeon = 0
+                                        self.logicGame?.modelPlayer.cores = 0
+                                        
+                                        self.logicGame?.modelPlayerList.players?.append(self.logicGame!.modelPlayer)
+                                        
+                                        
+                                    }else{
+                                        //p1 vai ser sempre zero
+                                        self.serverResponse.playerKey[0].points = ObjPosition
+                                        //atualiza o status de p1 no lado o server
+                                        self.logicGame?.modelPlayerList.players?[0].position = ObjPosition
+                                    }
+                                }else if ObjId == "player2"{
+                                    if self.serverResponse.playerKey.count == 1 {
+                                        self.serverResponse.playerKey.append(sendAndReceiveMsgsCodable(playerId: ObjId, points: ObjPosition))
+                                        
+                                        //popula s model do server para futuros delegates
+                                        self.logicGame?.modelPlayer.id = ObjId
+                                        self.logicGame?.modelPlayer.position = ObjPosition
+                                        
+                                        self.logicGame?.modelPlayer.key = false
+                                        self.logicGame?.modelPlayer.stateDungeon = 0
+                                        self.logicGame?.modelPlayer.cores = 0
+                                        
+                                        self.logicGame?.modelPlayerList.players?.append(self.logicGame!.modelPlayer)
+                                        
+                                    }else{
+                                        self.serverResponse.playerKey[1].points = ObjPosition
+                                        //atualiza o status de p1 no lado o server
+                                        self.logicGame?.modelPlayerList.players?[1].position = ObjPosition
+                                    }
+                                }
+                                
+                                
+                            }   
                         }
                     }
-                    //
-                    //                    // self.connected = true
                     
                     if error == nil {
-                        //connection.send(content: frame, completion: .idempotent)
-                                           var serverResponse = sendAndReceiveMsgsCodableList()
-                                           serverResponse.playerKey.append(sendAndReceiveMsgsCodable(playerId: self.logicGame?.player1.name , points: self.logicGame?.player1.position))
-                                          
-                                           let encoder = JSONEncoder()
-                                           
-                                           if let encodedData = try? encoder.encode(serverResponse){
-                                               connection.send(content: encodedData, completion: .contentProcessed({ (error)  in
-                                                   print("Enviado Position Player")
-                                                   if let error = error {
-                                                       print("erro ao enviar dados\(error)")
-                                                   }
-                                               }))
+                        
+                        
+                        
+                        
+                        let encoder = JSONEncoder()
+                        
+                        if let encodedData = try? encoder.encode(self.serverResponse){
+                            connection.send(content: encodedData, completion: .contentProcessed({ (error)  in
+                                print("Enviado Position Player")
+                                if let error = error {
+                                    print("erro ao enviar dados\(error)")
+                                }
+                            }))
                         }
                         self.receive(on: connection)
                     }
@@ -148,6 +189,6 @@ class UDPServer {
             }
         }
     }
-
+    
 }
 

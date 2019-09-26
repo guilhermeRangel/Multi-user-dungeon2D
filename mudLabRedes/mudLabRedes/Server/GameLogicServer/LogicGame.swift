@@ -12,8 +12,8 @@ import GameplayKit
 
 class LogicGame: SKScene, SKPhysicsContactDelegate {
     
-    var modelPlayer : playerModel = playerModel()
-    var modelPlayerList : playersList = playersList()
+    var modelPlayer : PlayerModel = PlayerModel()
+    var modelPlayerList : PlayersList = PlayersList()
     
     var player1 = SKSpriteNode(imageNamed: "p1")
     var player2 = SKSpriteNode(imageNamed: "p2")
@@ -43,6 +43,7 @@ class LogicGame: SKScene, SKPhysicsContactDelegate {
             for var p in modelPlayerList.players! {
 
                     p.position = points
+                
             }
             
             

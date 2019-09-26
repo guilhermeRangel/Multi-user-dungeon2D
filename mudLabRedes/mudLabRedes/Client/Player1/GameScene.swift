@@ -35,19 +35,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
     override public func touchesBegan ( _ touches: Set<UITouch>, with event: UIEvent?) {
         if let location = touches.first?.location(in: self){
-            player1.position = location
-            move = true
+       player1.position = location
+        client?.sendFrame(node: player1)
  
         }
     }
     
-
+    var timeSpawn: Double = 0
     override func update(_ currentTime: TimeInterval) {
-        if move == true {
-            move = false
-            client?.sendFrame(node: player1)
-        }
-         
+//        if timeSpawn + 0.5 <= currentTime {
+//        print("hora de mandar")
+//        client?.sendFrame(node: player1)
+//        timeSpawn = currentTime
+//        }
+          client?.sendFrame(node: player1)
     }
     
     

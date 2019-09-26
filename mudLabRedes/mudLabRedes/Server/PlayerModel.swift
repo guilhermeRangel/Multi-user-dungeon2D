@@ -10,12 +10,11 @@ import Foundation
 import SpriteKit
 
 
-struct playersList : Codable{
-    var players : [playerModel]? = []
-    var countPlayer : Int = 0
+struct PlayersList : Codable{
+    var players : [PlayerModel]? = []
 }
 
-struct playerModel : Codable {
+struct PlayerModel : Codable {
     var id : String?
     var position : CGPoint?
     var stateDungeon : Int?
@@ -25,5 +24,23 @@ struct playerModel : Codable {
 
 }
 
+enum CoresPrimarias {
+    case azul
+    case vermelho
+    case amarelo
+}
 
 
+enum CoresSecundarias {
+    case verde //azul + amarelo
+    case laranja //vermelho+amarelo
+    case roxo //azul+vermelho
+}
+
+enum Duengeon {
+    case zero
+    case esq
+    case dir
+    case baixo
+
+}
