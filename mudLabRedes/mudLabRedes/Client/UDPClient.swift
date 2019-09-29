@@ -54,11 +54,11 @@ class UDPClient {
     func initElements(){
         if let scene = playerScene as? GameScene{
             createNodes.initAllNodes(scene: scene, player: scene.player1, ground: scene.ground, misturador: scene.misturador,
-                                     dorEsq: scene.dorEsq, dorDir: scene.dorDir, dorBaixo: scene.dorBaixo, dorCima: scene.dorCima)
+                                     dorEsq: scene.dorEsq, dorDir: scene.dorDir, dorBaixo: scene.dorBaixo, dorCima: scene.dorCima, dorBack: scene.dorBack, corSecundariaPorta: scene.corSecundariaDor, corJoin: scene.corJoin)
             
         }else if let scene2 = playerScene as? GameScene2{
             createNodes.initAllNodes(scene: scene2, player: scene2.player2, ground: scene2.ground, misturador: scene2.misturador,
-                                     dorEsq: scene2.dorEsq, dorDir: scene2.dorDir, dorBaixo: scene2.dorBaixo, dorCima: scene2.dorCima)
+                                     dorEsq: scene2.dorEsq, dorDir: scene2.dorDir, dorBaixo: scene2.dorBaixo, dorCima: scene2.dorCima, dorBack: scene2.dorBack, corSecundariaPorta: scene2.corSecundariaDor, corJoin: scene2.corJoin)
         }
         
     }
@@ -81,7 +81,7 @@ class UDPClient {
         
         //eu acho q isso é tipo um ack
         connection.receiveMessage { (content, context, isComplete, error) in
-            print("got connected")
+           // print("got connected")
             // Extract your message type from the received context.
             if content != nil {
                 print("dados \(content?.description)")
@@ -99,10 +99,10 @@ class UDPClient {
         guard let frame = try? encoder.encode(idAndPosition) else {return print("erro Encode")}
         
         connection.send(content: frame, completion: .contentProcessed({ (error)  in
-            print("Enviado Position Player ok ")
+          //  print("Enviado Position Player ok ")
             
             self.connection.receiveMessage { (content, context, isComplete, error) in
-                       print("got connected")
+                      // print("got connected")
                        
                        // Extract your message type from the received context.
                        if content != nil {
@@ -145,7 +145,7 @@ class UDPClient {
                                    print("nao deu")
                                }
                                
-                               //self.connection.send(content: frame, completion: .idempotent)
+                            
                            }
                            
                        }

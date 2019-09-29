@@ -17,7 +17,7 @@ class UDPServer {
     var connected : Bool = false
     var serverResponse = sendAndReceiveMsgsCodableList()
     var logicGame : LogicGame?
-    var createNodes = CreateNodes()
+    
     
     init?(scene: LogicGame) {
         
@@ -53,7 +53,7 @@ class UDPServer {
                 strongSelf.receive(on: newConnection)
                 
             }
-            print("o jogador\(newConnection.currentPath)conectou-se")
+            //print("o jogador\(newConnection.currentPath)conectou-se")
             
         }
         
@@ -73,9 +73,9 @@ class UDPServer {
         }
         
         //start the listener
-        createNodes.initAllNodes(scene: logicGame!, player: logicGame!.player1, ground: logicGame!.ground, misturador: logicGame!.misturador,
-                                 dorEsq: logicGame!.dorEsq, dorDir: logicGame!.dorDir, dorBaixo: logicGame!.dorBaixo, dorCima: logicGame!.dorCima)
-        createNodes.createPlayer2(scene: logicGame!, nodo: logicGame!.player2)
+        logicGame?.createNodes.initAllNodes(scene: logicGame!, player: logicGame!.player1, ground: logicGame!.ground, misturador: logicGame!.misturador,
+                                            dorEsq: logicGame!.dorEsq, dorDir: logicGame!.dorDir, dorBaixo: logicGame!.dorBaixo, dorCima: logicGame!.dorCima, dorBack: logicGame!.dorBack, corSecundariaPorta: logicGame!.corSecundariaDor, corJoin: logicGame!.corJoin)
+        logicGame?.createNodes.createPlayer2(scene: logicGame!, nodo: logicGame!.player2)
         
         listener.start(queue: queue)
         
@@ -106,13 +106,13 @@ class UDPServer {
                     if let dataReceived = try? decoder.decode(sendAndReceiveMsgsCodable.self, from: frame) {
                         if let ObjId = dataReceived.playerId {
                             
-                            print("msg recebida : \(ObjId)")
+                            //print("msg recebida : \(ObjId)")
                             
                             if let ObjPosition = dataReceived.points {
                                 
                                 self.logicGame?.movePlayer(points: ObjPosition, name: ObjId)
                                 
-                                print("msg recebida Points : \(ObjPosition)")
+                               // print("msg recebida Points : \(ObjPosition)")
                                 
                                 
                                 if ObjId == "player1"{
@@ -170,7 +170,7 @@ class UDPServer {
                         
                         if let encodedData = try? encoder.encode(self.serverResponse){
                             connection.send(content: encodedData, completion: .contentProcessed({ (error)  in
-                                print("Enviado Position Player")
+                                //print("Enviado Position Player")
                                 if let error = error {
                                     print("erro ao enviar dados\(error)")
                                 }

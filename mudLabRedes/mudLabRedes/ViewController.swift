@@ -10,7 +10,7 @@ import UIKit
 import Network
 
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var login: UITextField!
     @IBOutlet weak var password: UITextField!
@@ -48,11 +48,16 @@ class ViewController: UIViewController {
     
     
     
-    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        login.text = ""
+        password.text = ""
+      }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        login.delegate = self
+       // password.delegate = self
         
     }
 }

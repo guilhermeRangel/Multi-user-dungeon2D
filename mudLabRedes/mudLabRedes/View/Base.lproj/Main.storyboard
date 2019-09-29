@@ -20,7 +20,7 @@
                                 <rect key="frame" x="-95" y="-279" width="565" height="1371"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MUDC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lq8-PY-EdY">
-                                <rect key="frame" x="20" y="62" width="335" height="34"/>
+                                <rect key="frame" x="20" y="62" width="335" height="118"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="118" id="OrX-Xk-sCl"/>
                                     <constraint firstAttribute="width" constant="374" id="m1R-9s-1TC"/>
@@ -29,8 +29,8 @@
                                 <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="p1" borderStyle="roundedRect" placeholder="Login:" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3dk-Du-fhC">
-                                <rect key="frame" x="99" y="285" width="177" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="admin" borderStyle="roundedRect" placeholder="Login:" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3dk-Du-fhC">
+                                <rect key="frame" x="99" y="369" width="177" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="GCs-Ob-mrZ"/>
                                     <constraint firstAttribute="width" constant="216" id="J0W-LR-naC"/>
@@ -38,8 +38,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1234" borderStyle="roundedRect" placeholder="Password:" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MED-VR-pBR">
-                                <rect key="frame" x="99" y="362" width="177" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="admin" borderStyle="roundedRect" placeholder="Password:" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MED-VR-pBR">
+                                <rect key="frame" x="99" y="446" width="177" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="216" id="CAk-qq-JdY"/>
                                     <constraint firstAttribute="height" constant="34" id="KJI-T4-AGZ"/>
@@ -48,7 +48,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HL0-2t-QSs">
-                                <rect key="frame" x="99" y="438" width="177" height="85"/>
+                                <rect key="frame" x="99" y="522" width="177" height="1"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="216" id="1ez-tF-McL"/>
@@ -107,12 +107,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <skView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v0f-wp-dqq">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <skView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v0f-wp-dqq">
+                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="v0f-wp-dqq" secondAttribute="height" multiplier="125:256" id="HUV-2I-jt4"/>
+                                </constraints>
                             </skView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="v0f-wp-dqq" firstAttribute="trailing" secondItem="btO-60-50k" secondAttribute="trailing" id="JAS-CV-URU"/>
+                            <constraint firstItem="v0f-wp-dqq" firstAttribute="leading" secondItem="btO-60-50k" secondAttribute="leading" id="Vng-Rj-VCr"/>
+                            <constraint firstItem="v0f-wp-dqq" firstAttribute="top" secondItem="btO-60-50k" secondAttribute="top" id="dh6-14-oqQ"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="v0f-wp-dqq" secondAttribute="bottom" id="iaa-TW-PlN"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="btO-60-50k"/>
                     </view>
                     <navigationItem key="navigationItem" id="OO6-xr-OUu"/>
@@ -122,7 +130,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rg6-RN-OED" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-487" y="51"/>
+            <point key="canvasLocation" x="-487.19999999999999" y="50.985221674876847"/>
         </scene>
         <!--Game View Controller2-->
         <scene sceneID="PN4-2c-4lt">
@@ -132,12 +140,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <skView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3AP-qS-kJW">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <skView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3AP-qS-kJW">
+                                <rect key="frame" x="0.0" y="44" width="414" height="896"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="896" id="7o0-iK-uq6"/>
+                                    <constraint firstAttribute="width" constant="414" id="A1C-Zv-c0O"/>
+                                </constraints>
                             </skView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="3AP-qS-kJW" secondAttribute="trailing" id="85S-VF-NW3"/>
+                            <constraint firstItem="3AP-qS-kJW" firstAttribute="leading" secondItem="dkD-Rw-kqI" secondAttribute="leading" id="Q4B-69-lKx"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="3AP-qS-kJW" secondAttribute="bottom" id="pWX-Rd-6mD"/>
+                            <constraint firstItem="3AP-qS-kJW" firstAttribute="top" secondItem="dxL-TT-5k4" secondAttribute="topMargin" id="siC-Ax-llG"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="dkD-Rw-kqI"/>
                     </view>
                     <navigationItem key="navigationItem" id="eva-qd-Utc"/>
@@ -157,12 +174,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <skView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7rz-Ud-IQt">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <skView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7rz-Ud-IQt">
+                                <rect key="frame" x="0.0" y="44" width="359" height="734"/>
                             </skView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="7rz-Ud-IQt" firstAttribute="top" secondItem="vfg-1F-qdv" secondAttribute="topMargin" id="9OJ-uN-m2H"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="7rz-Ud-IQt" secondAttribute="trailing" id="Bek-lJ-3E6"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="7rz-Ud-IQt" secondAttribute="bottom" id="GHB-Ng-KiA"/>
+                            <constraint firstItem="7rz-Ud-IQt" firstAttribute="leading" secondItem="wGP-Xy-3ot" secondAttribute="leading" id="ox4-Sv-yOq"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="wGP-Xy-3ot"/>
                     </view>
                     <navigationItem key="navigationItem" id="5YT-W9-8cM"/>
