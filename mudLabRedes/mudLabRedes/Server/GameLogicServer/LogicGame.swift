@@ -25,7 +25,8 @@ class LogicGame: SKScene, SKPhysicsContactDelegate {
     var misturador = SKSpriteNode(imageNamed: "misturador")
     
     var corSecundariaDor = SKShapeNode(circleOfRadius: 10)
-    
+    var corDor = SKShapeNode(circleOfRadius: 25)
+    var corJoin = SKShapeNode(circleOfRadius: 15)
     var dorEsq = SKNode()
     var dorDir = SKNode()
     var dorBaixo = SKNode()
@@ -33,10 +34,7 @@ class LogicGame: SKScene, SKPhysicsContactDelegate {
     var dorBack = SKNode()
     
     var auxNodeDor : SKSpriteNode?
-    
-    var corDor = SKShapeNode(circleOfRadius: 25)
-    var corJoin = SKShapeNode(circleOfRadius: 15)
-    
+
     var key = SKSpriteNode(imageNamed: "key")
     var createNodes : CreateNodes = CreateNodes()
     
@@ -177,11 +175,12 @@ class LogicGame: SKScene, SKPhysicsContactDelegate {
             modelPlayerList.players?[0].cores = 1
         }
         
-        if((nodeA.name == "player1" && nodeB.name == "itemRoxo") ||
-            (nodeA.name == "itemRoxo" && nodeB.name == "player1")){
+        if((nodeA.name == "player1" && nodeB.name == "itemPurple") ||
+            (nodeA.name == "itemPurple" && nodeB.name == "player1")){
             print("pegou o purple")
-            modelPlayerList.players?[0].cores = 3
             corDor.removeFromParent()
+            modelPlayerList.players?[0].cores = 3
+            
         }
         
         if((nodeA.name == "player1" && nodeB.name == "itemYellow") ||
@@ -190,7 +189,12 @@ class LogicGame: SKScene, SKPhysicsContactDelegate {
         }
         
         if((nodeA.name == "player1" && nodeB.name == "itemGreen") ||
-            (nodeA.name == "itemGreen" && nodeB.name == "player1")){
+            (nodeA.name == "itemGreen" && nodeB.name == "player1")){ self.removeAllChildren()
+                           modelPlayerList.players?[0].stateDungeon = 0
+                           
+                           createNodes.initAllNodes(scene: self, player: player1, ground: ground, misturador: misturador, dorEsq: dorEsq, dorDir: dorDir, dorBaixo: dorBaixo, dorCima: dorCima, dorBack: dorBack, corSecundariaPorta: corSecundariaDor, corJoin : corJoin)
+                           
+                           createNodes.createPlayer2(scene: self, nodo: player2)
             print("pegou o verde")
         }
         
@@ -228,6 +232,11 @@ class LogicGame: SKScene, SKPhysicsContactDelegate {
             (nodeA.name == "dorEsq" && nodeB.name == "player2")){
             print("porta Esquerda")
             
+            dorBack.position = dorDir.position
+            modelPlayerList.players?[1].stateDungeon = 1
+            createNodes.removeAllNodes(scene: self)
+            createNodes.createCorInDuengeonEsq(scene: self)
+            createNodes.createGroundEsq(scene: self, nodo: groundDors)
             
         }
         
@@ -235,6 +244,11 @@ class LogicGame: SKScene, SKPhysicsContactDelegate {
             (nodeA.name == "dorDir" && nodeB.name == "player2")){
             
             print("porta Direita")
+            dorBack.position = dorEsq.position
+            modelPlayerList.players?[1].stateDungeon = 3
+            createNodes.removeAllNodes(scene: self)
+            createNodes.createCorInDuengeonDir(scene: self)
+            createNodes.createGroundEsq(scene: self, nodo: groundDors)
             
         }
         
@@ -244,46 +258,102 @@ class LogicGame: SKScene, SKPhysicsContactDelegate {
             print("porta Baixo")
             
             
+            dorBack.position = dorCima.position
+            modelPlayerList.players?[1].stateDungeon = 2
+            createNodes.removeAllNodes(scene: self)
+            createNodes.createCorInDuengeonBaixo(scene: self)
+            createNodes.createGroundEsq(scene: self, nodo: groundDors)
+            
         }
         
         if((nodeA.name == "player2" && nodeB.name == "dorCima") ||
             (nodeA.name == "dorCima" && nodeB.name == "player2")){
-            print("porta Cima")
+            //emitir alerta
+            
+            if modelPlayerList.players?[1].key == true {
+                print("PARABENSSSSSSSS")
+            }
             
         }
+        
         if((nodeA.name == "player2" && nodeB.name == "dorBack") ||
             (nodeA.name == "dorBack" && nodeB.name == "player2")){
             
             print("Encontou na porta de volta")
+            
+            
+            self.removeAllChildren()
+            modelPlayerList.players?[1].stateDungeon = 0
+            createNodes.initAllNodes(scene: self, player: player1, ground: ground, misturador: misturador, dorEsq: dorEsq, dorDir: dorDir, dorBaixo: dorBaixo, dorCima: dorCima, dorBack: dorBack, corSecundariaPorta: corSecundariaDor, corJoin : corJoin)
+            createNodes.createPlayer2(scene: self, nodo: player2)
         }
         
         if((nodeA.name == "player2" && nodeB.name == "itemRed") ||
             (nodeA.name == "itemRed" && nodeB.name == "player2")){
-            
-            print("Encontou na porta de volta")
+            print("Encontou o vermelho")
+            corDor.removeFromParent()
+            modelPlayerList.players?[1].cores = 2
         }
         
         if((nodeA.name == "player2" && nodeB.name == "itemBlue") ||
             (nodeA.name == "itemBlue" && nodeB.name == "player2")){
+            print("Pegou a cor azul")
+            corDor.removeFromParent()
+            modelPlayerList.players?[1].cores = 1
+        }
+        
+        if((nodeA.name == "player2" && nodeB.name == "itemPurple") ||
+            (nodeA.name == "itemPurple" && nodeB.name == "player2")){
+            print("pegou o purple")
+            corDor.removeFromParent()
+            modelPlayerList.players?[1].cores = 3
             
-            print("Encontou na porta de volta")
         }
         
         if((nodeA.name == "player2" && nodeB.name == "itemYellow") ||
             (nodeA.name == "itemYellow" && nodeB.name == "player2")){
-            
             print("Encontou na porta de volta")
         }
+        
+        if((nodeA.name == "player2" && nodeB.name == "itemGreen") ||
+            (nodeA.name == "itemGreen" && nodeB.name == "player2")){ self.removeAllChildren()
+                           modelPlayerList.players?[1].stateDungeon = 0
+                           
+                           createNodes.initAllNodes(scene: self, player: player1, ground: ground, misturador: misturador, dorEsq: dorEsq, dorDir: dorDir, dorBaixo: dorBaixo, dorCima: dorCima, dorBack: dorBack, corSecundariaPorta: corSecundariaDor, corJoin : corJoin)
+                           
+                           createNodes.createPlayer2(scene: self, nodo: player2)
+            print("pegou o verde")
+        }
+        
+        
+        
         
         
         if((nodeA.name == "player2" && nodeB.name == "misturador") ||
             (nodeA.name == "misturador" && nodeB.name == "player2")){
-            
+            //print de duvidas
             print("Misturador")
         }
         
-    }
+        if((nodeA.name == "player2" && nodeB.name == "corJoin") ||
+            (nodeA.name == "corJoin" && nodeB.name == "player2")){
+            
+            if modelPlayerList.players?[1].cores == 1 {
+                corJoin.removeFromParent()
+                createNodes.createKey(scene: self, nodo: key)
+                print("verificando a mistura das cores primarias...")
+            }
+            
+            print("corJoin")
+        }
+        
+        if((nodeA.name == "player2" && nodeB.name == "key") ||
+            (nodeA.name == "key" && nodeB.name == "player2")){
+            modelPlayerList.players?[1].key = true
+            key.removeFromParent()
+            print("pegou a key")
+        }
     
     
-    
+}
 }

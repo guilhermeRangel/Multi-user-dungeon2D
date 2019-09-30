@@ -16,7 +16,7 @@ class UDPClient {
     var playerScene : Any?
     
     var modelServer : LogicGame?
-    var modelPlayers : PlayersList? = PlayersList()
+    
     var createNodes = CreateNodes()
     
     var controlEnterPlayer = false
@@ -81,7 +81,7 @@ class UDPClient {
         
         //eu acho q isso é tipo um ack
         connection.receiveMessage { (content, context, isComplete, error) in
-           // print("got connected")
+            // print("got connected")
             // Extract your message type from the received context.
             if content != nil {
                 print("dados \(content?.description)")
@@ -99,69 +99,78 @@ class UDPClient {
         guard let frame = try? encoder.encode(idAndPosition) else {return print("erro Encode")}
         
         connection.send(content: frame, completion: .contentProcessed({ (error)  in
-          //  print("Enviado Position Player ok ")
+            //  print("Enviado Position Player ok ")
             
             self.connection.receiveMessage { (content, context, isComplete, error) in
-                      // print("got connected")
-                       
-                       // Extract your message type from the received context.
-                       if content != nil {
-                           if let frame = content {
-                               
-                              
-                               let decoder2 = JSONDecoder()
-                               
-                               if let dataReceived = try? decoder2.decode(UDPServer.sendAndReceiveMsgsCodableList.self, from: frame) {
-                                   
-                                   if let scene = self.playerScene as? GameScene {
-                                       //cria o outro player
-                                       if ((dataReceived.playerKey.count == 2) && (self.controlEnterPlayer == false)){
-                                           self.controlEnterPlayer = true
-                                           self.createNodes.createPlayer2(scene: scene, nodo: scene.player2)
-                                           scene.player2.position = (dataReceived.playerKey.last?.points)!
-
-                                       }else if dataReceived.playerKey.count == 1 {
-                                           
-                                       }else {
-                                           scene.player2.position = (dataReceived.playerKey.last?.points)!
-                                           
-                                       }
-                                       
-                                       
-                                       
-                                   }else if let scene = self.playerScene as? GameScene2 {
-                                            //cria o outro player
-                                       if self.controlEnterPlayer == false{
-                                           self.controlEnterPlayer = true
-                                           self.createNodes.createPlayer2(scene: scene, nodo: scene.player1)
-                                           scene.player1.position = (dataReceived.playerKey.first?.points)!
-                                       }else{
-                                           scene.player1.position = (dataReceived.playerKey.first?.points)!
-                                       }
-                                   }
-                                   
-                                   //
-                               }else {
-                                   print("nao deu")
-                               }
-                               
+                // print("got connected")
+                
+                // Extract your message type from the received context.
+                if content != nil {
+                    if let frame = content {
+                        
+                        
+                        let decoder2 = JSONDecoder()
+                        
+                        if let dataReceived = try? decoder2.decode(UDPServer.sendAndReceiveMsgsCodableList.self, from: frame) {
                             
-                           }
-                           
-                       }
-                       
-                   }
+                            if let scene = self.playerScene as? GameScene {
+                                //cria o outro player
+                                if ((dataReceived.playerKey.count == 2) && (self.controlEnterPlayer == false)){
+                                    self.controlEnterPlayer = true
+                                    self.createNodes.createPlayer2(scene: scene, nodo: scene.player2)
+                                    scene.player2.position = (dataReceived.playerKey.last?.points)!
+                                    
+                                    
+                                }else if dataReceived.playerKey.count == 1 {
+                                    //aqui eu pego e atualizo os caras
+                                    
+                                    if scene.playListModel.players?.count == 0 {
+                                        scene.playListModel.players?.append((dataReceived.playListModel.players?.first)!)
+                                    }
+                                    
+                                }else {
+                                    scene.playListModel.players? = (dataReceived.playListModel.players)!
+                                    scene.player2.position = (dataReceived.playerKey.last?.points)!
+                                    
+                                }
+                                
+                                
+                                
+                            }else if let scene = self.playerScene as? GameScene2 {
+                                //cria o outro player
+                                if self.controlEnterPlayer == false{
+                                    self.controlEnterPlayer = true
+                                    self.createNodes.createPlayer2(scene: scene, nodo: scene.player1)
+                                    scene.player1.position = (dataReceived.playerKey.first?.points)!
+                                    
+                                }else{
+                                    
+                                    scene.player1.position = (dataReceived.playerKey.first?.points)!
+                                }
+                            }
+                            
+                            //
+                        }else {
+                            print("nao deu")
+                        }
+                        
+                        
+                    }
+                    
+                }
+                
+            }
             if let error = error {
                 print("erro ao enviar dados\(error)")
             }
         })
-        
-        
-        
+            
+            
+            
         )
         
-   
-       
+        
+        
     }
     
     

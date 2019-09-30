@@ -34,29 +34,52 @@ class CreateNodes {
         
         if let cena = scene as? GameScene {
             nodo.size = CGSize(width: (cena.size.width), height: (cena.size.height))
+            
+            if cena.playListModel.players?[0].stateDungeon == 1{
+                let dorDir = SKSpriteNode(imageNamed: "dorDir")
+                dorDir.position = cena.dorBack.position
+                cena.elementAddAuxNode(name: "dorDir", node: cena.dorBack)
+                cena.addChild(dorDir)
+            }else if  cena.playListModel.players?[0].stateDungeon == 2 {
+                let dorBaixo = SKSpriteNode(imageNamed: "dorBaixo")
+                dorBaixo.position = cena.dorBack.position
+                cena.elementAddAuxNode(name: "dorCima", node: cena.dorBack)
+                cena.addChild(dorBaixo)
+            }
+            else if  cena.playListModel.players?[0].stateDungeon == 3 {
+                let dorEsq = SKSpriteNode(imageNamed: "dorEsq")
+                dorEsq.position = cena.dorBack.position
+                cena.elementAddAuxNode(name: "dorEsq", node: cena.dorBack)
+                cena.addChild(dorEsq)
+            }
             cena.addChild(nodo)
         }else if let cena = scene as? GameScene2 {
             nodo.size = CGSize(width: (cena.size.width), height: (cena.size.height))
+            
+            
+            
+            
+            
             cena.addChild(nodo)
         }else if let cena = scene as? LogicGame {
             nodo.size = CGSize(width: (cena.size.width), height: (cena.size.height))
             
             
             if cena.modelPlayerList.players!.count > 0 {
-                //poe a porta do lado oposto da que ele entrou
+                
                 if cena.modelPlayerList.players?[0].stateDungeon == 1{
-                    var dorDir = SKSpriteNode(imageNamed: "dorDir")
+                    let dorDir = SKSpriteNode(imageNamed: "dorDir")
                     dorDir.position = cena.dorBack.position
                     cena.elementAddAuxNode(name: "dorDir", node: cena.dorBack)
                     cena.addChild(dorDir)
                 }else if  cena.modelPlayerList.players?[0].stateDungeon == 2 {
-                    var dorBaixo = SKSpriteNode(imageNamed: "dorBaixo")
+                    let dorBaixo = SKSpriteNode(imageNamed: "dorBaixo")
                     dorBaixo.position = cena.dorBack.position
                     cena.elementAddAuxNode(name: "dorCima", node: cena.dorBack)
                     cena.addChild(dorBaixo)
                 }
                 else if  cena.modelPlayerList.players?[0].stateDungeon == 3 {
-                    var dorEsq = SKSpriteNode(imageNamed: "dorEsq")
+                    let dorEsq = SKSpriteNode(imageNamed: "dorEsq")
                     dorEsq.position = cena.dorBack.position
                     cena.elementAddAuxNode(name: "dorEsq", node: cena.dorBack)
                     cena.addChild(dorEsq)
@@ -71,7 +94,7 @@ class CreateNodes {
     
     func createPlayer(scene : Any, nodo : SKSpriteNode){
         nodo.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        nodo.position = CGPoint(x: 0, y: 0)
+        nodo.position = CGPoint(x: 10, y: 0)
         nodo.size = CGSize(width: 65, height: 65)
         nodo.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: (nodo.size.width), height: (nodo.size.height)), center: .zero)
         nodo.physicsBody?.affectedByGravity = false
@@ -87,7 +110,6 @@ class CreateNodes {
             cena.addChild(nodo)
         }else if let cena = scene as? GameScene2 {
             nodo.name = "player2"
-            print("entrei aqui")
             cena.addChild(nodo)
         }else if let cena = scene as? LogicGame {
             nodo.name = "player1"
@@ -97,7 +119,7 @@ class CreateNodes {
     
     func createPlayer2(scene : Any, nodo : SKSpriteNode){
         nodo.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        nodo.position = CGPoint(x: 0, y: 0)
+        nodo.position = CGPoint(x: -30, y: 0)
         nodo.size = CGSize(width: 65, height: 65)
         nodo.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: (nodo.size.width), height: (nodo.size.height)), center: .zero)
         nodo.physicsBody?.affectedByGravity = false
@@ -125,9 +147,22 @@ class CreateNodes {
     
     func removeAllNodes(scene: Any){
         if let cena = scene as? GameScene {
+            if cena.playListModel.players?[0].stateDungeon == 1 || cena.playListModel.players?[0].stateDungeon == 2 || cena.playListModel.players?[0].stateDungeon == 3{
+                
+                for nodes in cena.children{
+                    if nodes.name != "player1"{
+                        if nodes.name != "dorBack"{
+                            nodes.removeFromParent()
+                            nodes.removeAllActions()
+                        }
+                    }
+                }
+            }
         }else if let cena = scene as? GameScene2{
+            
         }
         else if let cena = scene as? LogicGame{
+            
             if cena.modelPlayerList.players?[0].stateDungeon == 1 || cena.modelPlayerList.players?[0].stateDungeon == 2 || cena.modelPlayerList.players?[0].stateDungeon == 3{
                 
                 for nodes in cena.children{
@@ -145,9 +180,21 @@ class CreateNodes {
     
     func createCorInDuengeonEsq(scene: Any){
         if let cena = scene as? GameScene {
-            
+            cena.backgroundColor = .lightGray
+            cena.corDor.name = "itemBlue"
+            cena.corDor.position = .zero
+            physicsCategoryScene(node: nil, node2: cena.corDor, node3: nil)
+            cena.corDor.fillColor = .blue
+            cena.addChild(cena.corDor)
+            cena.addChild(cena.dorBack)
         }else if let cena = scene as? GameScene2{
-            
+            cena.backgroundColor = .lightGray
+            cena.corDor.name = "itemBlue"
+            cena.corDor.position = .zero
+            physicsCategoryScene(node: nil, node2: cena.corDor, node3: nil)
+            cena.corDor.fillColor = .blue
+            cena.addChild(cena.corDor)
+            cena.addChild(cena.dorBack)
         }
         else if let cena = scene as? LogicGame{
             cena.backgroundColor = .lightGray
@@ -164,9 +211,21 @@ class CreateNodes {
     
     func createCorInDuengeonDir(scene: Any){
         if let cena = scene as? GameScene {
-            
+            cena.backgroundColor = .lightGray
+            cena.corDor.name = "itemRed"
+            cena.corDor.position = .zero
+            physicsCategoryScene(node: nil, node2: cena.corDor, node3: nil)
+            cena.corDor.fillColor = .red
+            cena.addChild(cena.corDor)
+            cena.addChild(cena.dorBack)
         }else if let cena = scene as? GameScene2{
-            
+            cena.backgroundColor = .lightGray
+            cena.corDor.name = "itemRed"
+            cena.corDor.position = .zero
+            physicsCategoryScene(node: nil, node2: cena.corDor, node3: nil)
+            cena.corDor.fillColor = .red
+            cena.addChild(cena.corDor)
+            cena.addChild(cena.dorBack)
         }
         else if let cena = scene as? LogicGame{
             cena.backgroundColor = .lightGray
@@ -184,9 +243,21 @@ class CreateNodes {
     
     func createCorInDuengeonBaixo(scene: Any){
         if let cena = scene as? GameScene {
-            
+            cena.backgroundColor = .lightGray
+            cena.corDor.name = "itemPurple"
+            cena.corDor.position = .zero
+            physicsCategoryScene(node: nil, node2: cena.corDor, node3: nil)
+            cena.corDor.fillColor = .purple
+            cena.addChild(cena.corDor)
+            cena.addChild(cena.dorBack)
         }else if let cena = scene as? GameScene2{
-            
+            cena.backgroundColor = .lightGray
+            cena.corDor.name = "itemPurple"
+            cena.corDor.position = .zero
+            physicsCategoryScene(node: nil, node2: cena.corDor, node3: nil)
+            cena.corDor.fillColor = .purple
+            cena.addChild(cena.corDor)
+            cena.addChild(cena.dorBack)
         }
         else if let cena = scene as? LogicGame{
             cena.backgroundColor = .lightGray
@@ -205,8 +276,20 @@ class CreateNodes {
     
     func corSecundariaDor(scene: Any, nodo: SKShapeNode){
         if let cena = scene as? GameScene {
+            cena.backgroundColor = .lightGray
+            cena.corSecundariaDor.name = "itemGreen"
+            cena.corSecundariaDor.position = cena.dorCima.position
+            cena.corSecundariaDor.zPosition = 3
+            cena.corSecundariaDor.fillColor = .green
+            cena.addChild(cena.corSecundariaDor)
             
         }else if let cena = scene as? GameScene2{
+            cena.backgroundColor = .lightGray
+            cena.corSecundariaDor.name = "itemGreen"
+            cena.corSecundariaDor.position = cena.dorCima.position
+            cena.corSecundariaDor.zPosition = 3
+            cena.corSecundariaDor.fillColor = .green
+            cena.addChild(cena.corSecundariaDor)
             
         }
         else if let cena = scene as? LogicGame{
@@ -225,9 +308,17 @@ class CreateNodes {
         
         
         if let cena = scene as? GameScene {
-            
+            cena.corJoin.name = "corJoin"
+            cena.corJoin.position.y = cena.misturador.position.y - 80
+            physicsCategoryScene(node: nil, node2: cena.corJoin, node3: nil)
+            cena.corJoin.fillColor = .yellow
+            cena.addChild(cena.corJoin)
         }else if let cena = scene as? GameScene2{
-            
+            cena.corJoin.name = "corJoin"
+            cena.corJoin.position.y = cena.misturador.position.y - 80
+            physicsCategoryScene(node: nil, node2: cena.corJoin, node3: nil)
+            cena.corJoin.fillColor = .yellow
+            cena.addChild(cena.corJoin)
         }
         else if let cena = scene as? LogicGame{
             
@@ -245,9 +336,21 @@ class CreateNodes {
     func createKey(scene : Any, nodo : SKSpriteNode){
         
         if let cena = scene as? GameScene {
-            
+            cena.key.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            cena.key.size = CGSize(width: 65, height: 65)
+            cena.key.name = "key"
+            cena.key.position.y = cena.misturador.position.y + 80
+            cena.key.zPosition = 4
+            physicsCategoryScene(node: cena.key, node2: nil, node3: nil)
+            cena.addChild(cena.key)
         }else if let cena = scene as? GameScene2{
-            
+            cena.key.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            cena.key.size = CGSize(width: 65, height: 65)
+            cena.key.name = "key"
+            cena.key.position.y = cena.misturador.position.y + 80
+            cena.key.zPosition = 4
+            physicsCategoryScene(node: cena.key, node2: nil, node3: nil)
+            cena.addChild(cena.key)
         }
         else if let cena = scene as? LogicGame{
             cena.key.anchorPoint = CGPoint(x: 0.5, y: 0.5)
@@ -256,8 +359,6 @@ class CreateNodes {
             cena.key.position.y = cena.misturador.position.y + 80
             cena.key.zPosition = 4
             physicsCategoryScene(node: cena.key, node2: nil, node3: nil)
-            
-            
             cena.addChild(cena.key)
         }
     }

@@ -16,6 +16,7 @@ class UDPServer {
     var queue : DispatchQueue
     var connected : Bool = false
     var serverResponse = sendAndReceiveMsgsCodableList()
+    
     var logicGame : LogicGame?
     
     
@@ -87,11 +88,12 @@ class UDPServer {
         var playerId: String?
         var points : CGPoint?
         
+        
     }
     
     struct sendAndReceiveMsgsCodableList : Codable {
         var playerKey: [sendAndReceiveMsgsCodable] = []
-        
+        var playListModel : PlayersList = PlayersList()
     }
     
     
@@ -106,34 +108,35 @@ class UDPServer {
                     if let dataReceived = try? decoder.decode(sendAndReceiveMsgsCodable.self, from: frame) {
                         if let ObjId = dataReceived.playerId {
                             
-                            //print("msg recebida : \(ObjId)")
-                            
                             if let ObjPosition = dataReceived.points {
                                 
                                 self.logicGame?.movePlayer(points: ObjPosition, name: ObjId)
-                                
-                               // print("msg recebida Points : \(ObjPosition)")
                                 
                                 
                                 if ObjId == "player1"{
                                     if self.serverResponse.playerKey.count == 0 {
                                         self.serverResponse.playerKey.append(sendAndReceiveMsgsCodable(playerId: ObjId , points: ObjPosition))
+                                        
                                         //popula s model do server para futuros delegates
                                         self.logicGame?.modelPlayer.id = ObjId
                                         self.logicGame?.modelPlayer.position = ObjPosition
-                                        
                                         self.logicGame?.modelPlayer.key = false
                                         self.logicGame?.modelPlayer.stateDungeon = 0
                                         self.logicGame?.modelPlayer.cores = 0
                                         
                                         self.logicGame?.modelPlayerList.players?.append(self.logicGame!.modelPlayer)
+                                        //model para o client
+                                        self.serverResponse.playListModel.players?.append(self.logicGame!.modelPlayer)
                                         
                                         
                                     }else{
+                                        
                                         //p1 vai ser sempre zero
                                         self.serverResponse.playerKey[0].points = ObjPosition
+                                        
                                         //atualiza o status de p1 no lado o server
                                         self.logicGame?.modelPlayerList.players?[0].position = ObjPosition
+                                        
                                     }
                                 }else if ObjId == "player2"{
                                     if self.serverResponse.playerKey.count == 1 {
@@ -149,7 +152,7 @@ class UDPServer {
                                         
                                         self.logicGame?.modelPlayerList.players?.append(self.logicGame!.modelPlayer)
                                         
-                                    }else{
+                                    }else if self.serverResponse.playerKey.count == 2{
                                         self.serverResponse.playerKey[1].points = ObjPosition
                                         //atualiza o status de p1 no lado o server
                                         self.logicGame?.modelPlayerList.players?[1].position = ObjPosition
