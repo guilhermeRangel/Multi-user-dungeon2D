@@ -14,11 +14,8 @@ class UDPClient {
     var connection: NWConnection
     var queue: DispatchQueue
     var playerScene : Any?
-    
     var modelServer : LogicGame?
-    
     var createNodes = CreateNodes()
-    
     var controlEnterPlayer = false
     
     init(scene: GameScene?, scene2: GameScene2?) {
@@ -72,14 +69,10 @@ class UDPClient {
         
         connection.send(content: data, completion: .contentProcessed({ (error)  in
             print("Dados enviados com sucesso!")
-            
             if let error = error {
                 print("erro ao enviar dados\(error)")
             }
         }))
-        
-        
-        //eu acho q isso é tipo um ack
         connection.receiveMessage { (content, context, isComplete, error) in
             // print("got connected")
             // Extract your message type from the received context.
@@ -97,20 +90,15 @@ class UDPClient {
         let idAndPosition : UDPServer.sendAndReceiveMsgsCodable = UDPServer.sendAndReceiveMsgsCodable(playerId: node.name, points: node.position)
         let encoder = JSONEncoder()
         guard let frame = try? encoder.encode(idAndPosition) else {return print("erro Encode")}
-        
         connection.send(content: frame, completion: .contentProcessed({ (error)  in
             //  print("Enviado Position Player ok ")
-            
             self.connection.receiveMessage { (content, context, isComplete, error) in
                 // print("got connected")
-                
+
                 // Extract your message type from the received context.
                 if content != nil {
                     if let frame = content {
-                        
-                        
                         let decoder2 = JSONDecoder()
-                        
                         if let dataReceived = try? decoder2.decode(UDPServer.sendAndReceiveMsgsCodableList.self, from: frame) {
                             
                             if let scene = self.playerScene as? GameScene {
@@ -177,7 +165,6 @@ class UDPClient {
     
     //send  data
     //Define um bloco no qual as chamadas para enviar e receber são processadas como um lote para melhorar o desempenho.
-    
     func send(frames: [Data]) {
         connection.batch {
             for frame in frames {

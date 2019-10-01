@@ -47,7 +47,7 @@ class UDPServer {
         
         
         //handle incoming connections
-        listener.newConnectionHandler = { [weak self] (newConnection) in
+        listener.newConnectionHandler = { [weak  self] (newConnection) in
             print("novo player se conectou com o servidor ")
             if let strongSelf = self {
                 newConnection.start(queue: strongSelf.queue)
@@ -97,13 +97,12 @@ class UDPServer {
     }
     
     
-    //receive packets from the other side and push to scren as videos
+    //receive packets from the other..
     func receive(on connection: NWConnection){
         connection.receiveMessage { (content, context, isComplete, error) in
             // Extract your message type from the received context.
             if let frame = content {
                 if !self.connected {
-                    //connection.send(content: frame, completion: .idempotent)
                     let decoder = JSONDecoder()
                     if let dataReceived = try? decoder.decode(sendAndReceiveMsgsCodable.self, from: frame) {
                         if let ObjId = dataReceived.playerId {
@@ -111,6 +110,7 @@ class UDPServer {
                             if let ObjPosition = dataReceived.points {
                                 
                                 self.logicGame?.movePlayer(points: ObjPosition, name: ObjId)
+                              
                                 
                                 
                                 if ObjId == "player1"{
@@ -134,6 +134,9 @@ class UDPServer {
                                         //p1 vai ser sempre zero
                                         self.serverResponse.playerKey[0].points = ObjPosition
                                         
+                                        if self.serverResponse.playListModel.players?.first?.stateDungeon == 0 {
+                                            self.logicGame?.modelPlayerList.players?[0].stateDungeon = 0
+                                        }
                                         //atualiza o status de p1 no lado o server
                                         self.logicGame?.modelPlayerList.players?[0].position = ObjPosition
                                         
@@ -165,12 +168,7 @@ class UDPServer {
                     }
                     
                     if error == nil {
-                        
-                        
-                        
-                        
                         let encoder = JSONEncoder()
-                        
                         if let encodedData = try? encoder.encode(self.serverResponse){
                             connection.send(content: encodedData, completion: .contentProcessed({ (error)  in
                                 //print("Enviado Position Player")
@@ -181,11 +179,7 @@ class UDPServer {
                         }
                         self.receive(on: connection)
                     }
-                    
-                    
-                    
                 }else {
-                    print("nao deu")
                     print("error do receive")
                     
                 }

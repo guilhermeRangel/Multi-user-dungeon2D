@@ -17,9 +17,9 @@ class GameViewController: UIViewController {
     
     fileprivate func createScene() {
         scene = GameScene(size: view.bounds.size)
-        skview.showsFPS = true
-        skview.showsNodeCount = true
-        skview.showsPhysics = true
+       // skview.showsFPS = true
+       // skview.showsNodeCount = true
+       // skview.showsPhysics = true
         scene?.scaleMode = .aspectFill
         scene?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         scene?.physicsBody = SKPhysicsBody.init(edgeLoopFrom: scene!.frame)

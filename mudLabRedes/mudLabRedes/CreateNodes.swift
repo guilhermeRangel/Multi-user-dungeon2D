@@ -159,7 +159,17 @@ class CreateNodes {
                 }
             }
         }else if let cena = scene as? GameScene2{
-            
+            if cena.playListModel.players?[1].stateDungeon == 1 || cena.playListModel.players?[1].stateDungeon == 2 || cena.playListModel.players?[1].stateDungeon == 3{
+                
+                for nodes in cena.children{
+                    if nodes.name != "player2"{
+                        if nodes.name != "dorBack"{
+                            nodes.removeFromParent()
+                            nodes.removeAllActions()
+                        }
+                    }
+                }
+            }
         }
         else if let cena = scene as? LogicGame{
             
@@ -279,6 +289,7 @@ class CreateNodes {
             cena.backgroundColor = .lightGray
             cena.corSecundariaDor.name = "itemGreen"
             cena.corSecundariaDor.position = cena.dorCima.position
+            cena.corSecundariaDor.position.y = cena.corSecundariaDor.position.y + 30
             cena.corSecundariaDor.zPosition = 3
             cena.corSecundariaDor.fillColor = .green
             cena.addChild(cena.corSecundariaDor)
@@ -287,6 +298,7 @@ class CreateNodes {
             cena.backgroundColor = .lightGray
             cena.corSecundariaDor.name = "itemGreen"
             cena.corSecundariaDor.position = cena.dorCima.position
+            cena.corSecundariaDor.position.y = cena.corSecundariaDor.position.y + 30
             cena.corSecundariaDor.zPosition = 3
             cena.corSecundariaDor.fillColor = .green
             cena.addChild(cena.corSecundariaDor)
@@ -296,6 +308,7 @@ class CreateNodes {
             cena.backgroundColor = .lightGray
             cena.corSecundariaDor.name = "itemGreen"
             cena.corSecundariaDor.position = cena.dorCima.position
+            cena.corSecundariaDor.position.y = cena.corSecundariaDor.position.y + 30
             cena.corSecundariaDor.zPosition = 3
             cena.corSecundariaDor.fillColor = .green
             cena.addChild(cena.corSecundariaDor)
